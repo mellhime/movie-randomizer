@@ -18,4 +18,4 @@ jobs:
       - name: Run lints
         run: |
           npm install
-          npm run lint
+          npm run lint check

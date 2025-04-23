@@ -4,7 +4,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "paths": {
-      "@root/*": ["./src/*"],
+      "@root/*": ["./src/*"]
     }
   },
   "include": ["src/scripts/**/*"]

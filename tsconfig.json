@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@root/*": ["./src/*"]
+    }
+  },
+  "include": ["src/scripts/**/*"]
+}

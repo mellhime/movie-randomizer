@@ -1,0 +1,39 @@
+{
+  "name": "movie-randomizer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Movie randomizer",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.0.0",
+    "prettier": "3.5.3",
+    "sass-embedded": "^1.86.3",
+    "stylelint": "^16.18.0",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.0",
+    "vite": "^6.2.6"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite build && vite preview",
+    "eslint": "eslint .",
+    "eslint:fix": "npx eslint . --fix",
+    "prettier": "npx prettier . --check",
+    "prettier:fix": "npx prettier . --write",
+    "stylelint": "npx stylelint src/styles",
+    "stylelint:fix": "npx stylelint src/styles --fix",
+    "lint-check": "npm run eslint && npm run stylelint",
+    "lint": "npm run eslint:fix && npm run stylelint:fix"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

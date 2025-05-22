@@ -5,8 +5,8 @@ import {
   act,
   renderHook,
 } from "@testing-library/react";
-import { Favorites } from "../src/scripts/Favorites";
-import { useFetch } from "../src/scripts/useFetch";
+import { Favorites } from "./Favorites";
+import { useFetch } from "./useFetch";
 
 describe("Favorites component", () => {
   it("matches snapshot", () => {

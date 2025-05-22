@@ -6,7 +6,7 @@
     "paths": {
       "@root/*": ["./src/*"]
     },
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   "include": ["src/scripts/**/*"],
 }

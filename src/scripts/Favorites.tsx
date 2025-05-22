@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useFetch } from "./useFetch";
 
-function Favorites() {
+const Favorites: FC = () => {
   const [favoritesList, setFavoritesList] = useState([]);
   const [moviesList] = useFetch("movies");
 
@@ -37,6 +37,6 @@ function Favorites() {
       <p data-testid="count">Count: {favoritesList.length}</p>
     </>
   );
-}
+};
 
-export default Favorites;
+export { Favorites };

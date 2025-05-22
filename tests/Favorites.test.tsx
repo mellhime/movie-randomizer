@@ -5,7 +5,7 @@ import {
   act,
   renderHook,
 } from "@testing-library/react";
-import Favorites from "../src/scripts/Favorites";
+import { Favorites } from "../src/scripts/Favorites";
 import { useFetch } from "../src/scripts/useFetch";
 
 describe("Favorites component", () => {

@@ -10,7 +10,9 @@ const movies = [
   { title: "2012", id: 3 },
 ];
 
-export function useFetch(path = ""): [IMovie[], () => void] {
+type TUseFetch = (path: string) => [IMovie[], () => void];
+
+export const useFetch: TUseFetch = (path = "") => {
   const [data, setData] = useState([]);
 
   const fetchData = () => {
@@ -24,4 +26,4 @@ export function useFetch(path = ""): [IMovie[], () => void] {
   }, []);
 
   return [data, fetchData];
-}
+};

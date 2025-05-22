@@ -1,4 +1,4 @@
-import Favorites from "./Favorites";
+import { Favorites } from "./Favorites";
 
 export default function MovieRandomizer() {
   return (

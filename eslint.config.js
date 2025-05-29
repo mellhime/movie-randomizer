@@ -7,24 +7,41 @@ import pluginPrettier from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
-    languageOptions: { globals: globals.browser },
-  },
-  {
-    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+    languageOptions: {
+      sourceType: "module",
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.jest,
+      },
+    },
     plugins: {
       js,
       prettier: pluginPrettier,
+      react: pluginReact,
     },
-    extends: ["js/recommended"],
     rules: {
       ...eslintConfigPrettier.rules,
       "prettier/prettier": "error",
+      "react/jsx-uses-vars": "error",
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "react/display-name": "off",
     },
+    extends: ["js/recommended"],
   },
-  globalIgnores(["node_modules/*", "dist/*"]),
   tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
+  globalIgnores(["node_modules/*", "dist/*"]),
 ]);

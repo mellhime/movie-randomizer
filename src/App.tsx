@@ -1,9 +1,13 @@
-import { Favorites } from "./Favorites";
+import { SearchBlock } from "./pages/SearchBlock";
+import { MovieInfo } from "./pages/SearchBlock/MovieInfo";
+import { Header } from "./pages/Header";
 
-export default function MovieRandomizer() {
+export function MovieRandomizer() {
   return (
-    <main className="main">
-      <Favorites />
+    <main>
+      <Header />
+      <SearchBlock />
+      <MovieInfo />
     </main>
   );
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Favorites component matches snapshot 1`] = `
+exports[`WatchList component matches snapshot 1`] = `
 <DocumentFragment>
   <table>
     <thead>
@@ -18,7 +18,7 @@ exports[`Favorites component matches snapshot 1`] = `
         </td>
         <td>
           <button>
-            Add to favorites
+            Remove from watch list
           </button>
         </td>
       </tr>
@@ -28,7 +28,7 @@ exports[`Favorites component matches snapshot 1`] = `
         </td>
         <td>
           <button>
-            Add to favorites
+            Remove from watch list
           </button>
         </td>
       </tr>
@@ -38,17 +38,11 @@ exports[`Favorites component matches snapshot 1`] = `
         </td>
         <td>
           <button>
-            Add to favorites
+            Remove from watch list
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-  <br />
-  <p
-    data-testid="count"
-  >
-    Count: 0
-  </p>
 </DocumentFragment>
 `;

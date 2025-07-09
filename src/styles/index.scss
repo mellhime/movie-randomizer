@@ -9,21 +9,3 @@ html {
 .main {
   height: 100%;
 }
-
-.header__content {
-  display: flex;
-  justify-content: space-between;
-}
-
-.search__wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.header__logo {
-  position: absolute;
-  right: 3%;
-  max-width: 40px;
-  max-height: 40px;
-};

@@ -1,4 +1,4 @@
-const list = () => {
+const getMovieslist = () => {
   // https://developer.themoviedb.org/reference/discover-movie
 };
 
@@ -6,12 +6,12 @@ const addToWatchList = () => {
   // https://developer.themoviedb.org/reference/account-add-to-watchlist
 };
 
-const genresList = () => {
+const getGenresList = () => {
   // https://developer.themoviedb.org/reference/genre-movie-list
 };
 
-const watchList = () => {
+const getWatchList = () => {
   // https://developer.themoviedb.org/reference/account-watchlist-movies
 };
 
-export { list, addToWatchList, genresList, watchList };
+export { getMovieslist, addToWatchList, getGenresList, getWatchList };

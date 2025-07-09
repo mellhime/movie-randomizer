@@ -1,13 +1,14 @@
-import { SearchBlock } from "./pages/SearchBlock";
-import { MovieInfo } from "./pages/SearchBlock/MovieInfo";
-import { Header } from "./pages/Header";
+import { Header } from "@layouts/Header";
+import { Content } from "@layouts/Content";
+import { FC } from "react";
 
-export function MovieRandomizer() {
+const App: FC = () => {
   return (
     <main>
       <Header />
-      <SearchBlock />
-      <MovieInfo />
+      <Content />
     </main>
   );
-}
+};
+
+export { App };

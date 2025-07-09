@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { Filters } from "./SearchBlock/Filters";
-import { Button } from "primereact/button";
+import { SearchBlock } from "@modules/SearchBlock";
+import { MovieInfo } from "@modules/SearchBlock/MovieInfo";
 
-const SearchBlock: FC = () => {
+const Content: FC = () => {
   return (
     <div className="flex align-items-center flex-column">
       <h1>Random Movie Generator</h1>
@@ -12,10 +12,10 @@ const SearchBlock: FC = () => {
         dates, and runtimes to find your perfect match from a constantly updated
         movie collection. Discover your next favorite film with just a click!
       </p>
-      <Filters></Filters>
-      <Button>Get a random movie</Button>
+      <SearchBlock></SearchBlock>
+      <MovieInfo />
     </div>
   );
 };
 
-export { SearchBlock };
+export { Content };

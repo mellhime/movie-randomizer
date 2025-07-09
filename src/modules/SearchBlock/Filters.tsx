@@ -5,7 +5,7 @@ import { Calendar } from "primereact/calendar";
 const Filters: FC = () => {
   return (
     <>
-      <h2 className="filters__title">Search filters</h2>
+      <h2>Search filters</h2>
       <MultiSelect>Genre</MultiSelect>
       <Calendar>Release year</Calendar>
       {/* score */}

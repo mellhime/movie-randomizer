@@ -3,7 +3,7 @@ import { FC } from "react";
 const MovieInfo: FC = () => {
   return (
     <>
-      <h1>Movie description</h1>
+      <h2>Movie description</h2>
     </>
   );
 };

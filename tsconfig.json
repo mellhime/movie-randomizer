@@ -3,10 +3,15 @@
     "outDir": "dist",
     "sourceMap": true,
     "skipLibCheck": true,
+    "baseUrl": "./src",
     "paths": {
-      "@root/*": ["./src/*"]
+      "@images/*": ["images/*"],
+      "@api/*": ["api/*"],
+      "@hooks/*": ["hooks/*"],
+      "@layouts/*": ["layouts/*"],
+      "@modules/*": ["modules/*"]
     },
     "jsx": "react-jsx"
   },
-  "include": ["src/scripts/**/*"],
+  "include": ["src/**/*", "modules.d.ts"]
 }

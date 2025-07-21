@@ -1,9 +1,14 @@
-import { Favorites } from "./Favorites";
+import { Header } from "@layouts/Header";
+import { Content } from "@layouts/Content";
+import { FC } from "react";
 
-export default function MovieRandomizer() {
+const App: FC = () => {
   return (
-    <main className="main">
-      <Favorites />
+    <main>
+      <Header />
+      <Content />
     </main>
   );
-}
+};
+
+export { App };

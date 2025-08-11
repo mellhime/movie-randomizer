@@ -9,14 +9,13 @@ const Header: FC<IProps> = ({ leftPart, rightPart }) => {
   return (
     <header>
       <div
-        className="flex justify-content-between header"
-        // todo put it to styles ?
-        style={{
-          backgroundColor: "var(--highlight-bg)",
-          color: "var(--highlight-text-color)",
-          borderRadius: "var(--border-radius)",
-          padding: "2rem",
-        }}
+        className="flex justify-content-between p-2 border-round surface-200"
+        // style={{
+        //   backgroundColor: "var(--highlight-bg)",
+        //   color: "var(--highlight-text-color)",
+        //   borderRadius: "var(--border-radius)",
+        //   padding: "2rem",
+        // }}
       >
         {leftPart}
         {rightPart}

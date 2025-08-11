@@ -3,16 +3,18 @@ import { MiddlePanel } from "@layouts/MiddlePanel";
 import { FC } from "react";
 import { WatchListButton } from "@modules/WatchListButton";
 import { Logo } from "@modules/Logo";
-import background from "@images/background.png";
 import { SearchBlock } from "@modules/SearchBlock";
 import { MovieInfo } from "@modules/SearchBlock/MovieInfo";
 import { LowerPanel } from "@layouts/LowerPanel";
+import { Divider } from "primereact/divider";
+import { AppDescription } from "@layouts/AppDescription";
 
 const App: FC = () => {
   return (
-    // todo put it to styles ?
-    <main style={{ backgroundImage: `url(${background})` }}>
+    <main>
       <Header leftPart={<Logo />} rightPart={<WatchListButton />} />
+      <AppDescription />
+      <Divider></Divider>
       <MiddlePanel content={<SearchBlock />} />
       <LowerPanel content={<MovieInfo />} />
     </main>

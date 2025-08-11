@@ -4,7 +4,7 @@ import { FC } from "react";
 import { WatchListButton } from "@modules/WatchListButton";
 import { Logo } from "@modules/Logo";
 import { SearchBlock } from "@modules/SearchBlock";
-import { MovieInfo } from "@modules/SearchBlock/MovieInfo";
+import { MovieInfo } from "@modules/MovieInfo";
 import { LowerPanel } from "@layouts/LowerPanel";
 import { Divider } from "primereact/divider";
 import { AppDescription } from "@layouts/AppDescription";

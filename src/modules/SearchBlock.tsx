@@ -1,13 +1,21 @@
 import { FC } from "react";
 import { Filters } from "./SearchBlock/Filters";
 import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 
 const SearchBlock: FC = () => {
   return (
-    <div className="flex align-items-center flex-column">
-      <Filters></Filters>
-      <Button>Get a random movie</Button>
-    </div>
+    <>
+      <h2>Search filters</h2>
+      <Card className="w-6">
+        <form className="flex align-items-center flex-column">
+          <Filters></Filters>
+          <Button className="p-button-secondary m-5" type="submit">
+            Get a random movie
+          </Button>
+        </form>
+      </Card>
+    </>
   );
 };
 

@@ -1,17 +1,16 @@
-import { FC } from "react";
-import { Button } from "primereact/button";
-import logo from "@images/logo.png";
+import { FC, ReactNode } from "react";
 
-const Header: FC = () => {
+interface IProps {
+  leftPart?: ReactNode;
+  rightPart?: ReactNode;
+}
+
+const Header: FC<IProps> = ({ leftPart, rightPart }) => {
   return (
     <header>
-      <div className="flex justify-content-between">
-        <img src={logo} alt="logo" className="w-6rem h-6rem"></img>
-        <Button
-          className="p-button-secondary mb-3 md:mb-0"
-          type="button"
-          label="Watch Later"
-        ></Button>
+      <div className="flex justify-content-between p-3 border-round bg-bluegray-200">
+        {leftPart}
+        {rightPart}
       </div>
     </header>
   );

@@ -1,7 +1,15 @@
+$text-color: #2F3B3B;
+
 html {
   font-size: 16px;
 }
 
 body {
   margin: 0;
+}
+
+main {
+  height: 100vh;
+  color: $text-color;
+  background-image: url("/assets/images/background.png");
 }

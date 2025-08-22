@@ -1,12 +1,23 @@
 import { Header } from "@layouts/Header";
-import { Content } from "@layouts/Content";
+import { MiddlePanel } from "@layouts/MiddlePanel";
 import { FC } from "react";
+import { WatchListButton } from "@modules/WatchListButton";
+import { Logo } from "@modules/Logo";
+import { SearchBlock } from "@modules/SearchBlock";
+import { MovieInfo } from "@modules/MovieInfo";
+import { LowerPanel } from "@layouts/LowerPanel";
+import { Divider } from "primereact/divider";
+import { AppDescription } from "@layouts/AppDescription";
+import { app } from "./texts";
 
 const App: FC = () => {
   return (
     <main>
-      <Header />
-      <Content />
+      <Header leftPart={<Logo />} rightPart={<WatchListButton />} />
+      <AppDescription title={app.title} description={app.description} />
+      <Divider></Divider>
+      <MiddlePanel content={<SearchBlock />} />
+      <LowerPanel content={<MovieInfo />} />
     </main>
   );
 };

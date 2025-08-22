@@ -8,12 +8,13 @@ import { MovieInfo } from "@modules/MovieInfo";
 import { LowerPanel } from "@layouts/LowerPanel";
 import { Divider } from "primereact/divider";
 import { AppDescription } from "@layouts/AppDescription";
+import { app } from "./texts";
 
 const App: FC = () => {
   return (
     <main>
       <Header leftPart={<Logo />} rightPart={<WatchListButton />} />
-      <AppDescription />
+      <AppDescription title={app.title} description={app.description} />
       <Divider></Divider>
       <MiddlePanel content={<SearchBlock />} />
       <LowerPanel content={<MovieInfo />} />

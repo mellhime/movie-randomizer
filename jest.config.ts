@@ -13,6 +13,7 @@ const jestConfig: Config = {
   transform: {
     ...tsJestTransformCfg,
     "^.+\\.(ts|tsx)$": "ts-jest",
+    ".+\\.(css|scss|png|jpg|svg)$": "jest-transform-stub",
   },
   roots: ["<rootDir>"],
   modulePaths: [compilerOptions.baseUrl],

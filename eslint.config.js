@@ -1,7 +1,6 @@
 import js from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier";
-import importPlugin from "eslint-plugin-import";
 import pluginPrettier from "eslint-plugin-prettier";
 import pluginReact from "eslint-plugin-react";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
@@ -15,12 +14,6 @@ export default defineConfig([
       react: {
         version: "detect",
       },
-      "import/resolver": {
-        node: {
-          extensions: [".js", ".jsx", ".ts", ".tsx"],
-        },
-        typescript: {},
-      },
     },
     languageOptions: {
       sourceType: "module",
@@ -28,7 +21,6 @@ export default defineConfig([
         ecmaFeatures: {
           jsx: true,
         },
-        ecmaVersion: "latest",
       },
       globals: {
         ...globals.browser,
@@ -39,7 +31,6 @@ export default defineConfig([
       js,
       prettier: pluginPrettier,
       react: pluginReact,
-      import: importPlugin,
       "simple-import-sort": simpleImportSort,
     },
     rules: {

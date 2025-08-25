@@ -1,10 +1,11 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import globals from "globals";
 import js from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
-import pluginPrettier from "eslint-plugin-prettier";
+import { defineConfig, globalIgnores } from "eslint/config";
 import eslintConfigPrettier from "eslint-config-prettier";
+import pluginPrettier from "eslint-plugin-prettier";
+import pluginReact from "eslint-plugin-react";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default defineConfig([
   {
@@ -30,6 +31,7 @@ export default defineConfig([
       js,
       prettier: pluginPrettier,
       react: pluginReact,
+      "simple-import-sort": simpleImportSort,
     },
     rules: {
       ...eslintConfigPrettier.rules,
@@ -39,6 +41,54 @@ export default defineConfig([
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "react/display-name": "off",
+      "simple-import-sort/imports": [
+        "error",
+        {
+          groups: [
+            ["^react", "^react-dom"],
+            ["^@?\\w"],
+            ["^.+\\.s?css$"],
+            [
+              "^@styles",
+              "^@layouts",
+              "^@modules",
+              "^@hooks",
+              "^@api",
+              "^@images",
+            ],
+            ["^\\."],
+          ],
+        },
+      ],
+      "simple-import-sort/exports": "error",
+      "sort-imports": [
+        "error",
+        {
+          ignoreCase: true,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+        },
+      ],
+      "no-restricted-exports": [
+        "error",
+        { restrictedNamedExports: ["default"] },
+      ],
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "@layouts/**/*",
+                "@modules/**/*",
+                "@hooks/**/*",
+                "@api/**/*",
+              ],
+              message: "Import only from root index.ts module",
+            },
+          ],
+        },
+      ],
     },
     extends: ["js/recommended"],
   },

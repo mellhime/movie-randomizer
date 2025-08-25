@@ -1,6 +1,7 @@
 import { render, renderHook } from "@testing-library/react";
-import { WatchList } from "../WatchList";
-import { useFetch } from "@hooks/useFetch";
+
+import { WatchList } from "@modules";
+import { useFetch } from "@hooks";
 
 describe("WatchList component", () => {
   it("should match snapshot", () => {

@@ -1,6 +1,5 @@
-import { createDefaultPreset } from "ts-jest";
-import { pathsToModuleNameMapper } from "ts-jest";
 import type { Config } from "jest";
+import { createDefaultPreset, pathsToModuleNameMapper } from "ts-jest";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { compilerOptions } = require("./tsconfig.json");
@@ -14,6 +13,7 @@ const jestConfig: Config = {
   transform: {
     ...tsJestTransformCfg,
     "^.+\\.(ts|tsx)$": "ts-jest",
+    ".+\\.(css|scss|png|jpg|svg)$": "jest-transform-stub",
   },
   roots: ["<rootDir>"],
   modulePaths: [compilerOptions.baseUrl],

@@ -7,9 +7,15 @@
     "paths": {
       "@images/*": ["images/*"],
       "@api/*": ["api/*"],
+      "@api": ["api"],
       "@hooks/*": ["hooks/*"],
+      "@hooks": ["hooks"],
       "@layouts/*": ["layouts/*"],
-      "@modules/*": ["modules/*"]
+      "@layouts": ["layouts"],
+      "@modules/*": ["modules/*"],
+      "@modules": ["modules"],
+      "@styles/*": ["styles/*"],
+      "@styles": ["styles"]
     },
     "jsx": "react-jsx"
   },

@@ -83,106 +83,17 @@ exports[`WatchList component should match snapshot 1`] = `
           role=" rowgroup"
         >
           <tr
-            data-p-highlight="false"
-            data-p-highlight-contextmenu="false"
-            data-pc-section="bodyrow"
+            class="p-datatable-emptymessage"
+            data-pc-section="emptymessage"
             role="row"
           >
             <td
-              data-p-cell-editing="false"
-              data-p-editable-column="true"
-              data-p-frozen-column="false"
-              data-p-selectable-cell="false"
-              data-p-selection-column="false"
+              colspan="2"
               data-pc-name="datatable"
               data-pc-section="bodycell"
               role="cell"
             >
-              Leon
-            </td>
-            <td
-              class="w-10rem"
-              data-p-cell-editing="false"
-              data-p-editable-column="true"
-              data-p-frozen-column="false"
-              data-p-selectable-cell="false"
-              data-p-selection-column="false"
-              data-pc-name="datatable"
-              data-pc-section="bodycell"
-              role="cell"
-            >
-              <button>
-                Remove from watch list
-              </button>
-            </td>
-          </tr>
-          <tr
-            class="p-row-odd"
-            data-p-highlight="false"
-            data-p-highlight-contextmenu="false"
-            data-pc-section="bodyrow"
-            role="row"
-          >
-            <td
-              data-p-cell-editing="false"
-              data-p-editable-column="true"
-              data-p-frozen-column="false"
-              data-p-selectable-cell="false"
-              data-p-selection-column="false"
-              data-pc-name="datatable"
-              data-pc-section="bodycell"
-              role="cell"
-            >
-              Neon Genesis Evangelion
-            </td>
-            <td
-              class="w-10rem"
-              data-p-cell-editing="false"
-              data-p-editable-column="true"
-              data-p-frozen-column="false"
-              data-p-selectable-cell="false"
-              data-p-selection-column="false"
-              data-pc-name="datatable"
-              data-pc-section="bodycell"
-              role="cell"
-            >
-              <button>
-                Remove from watch list
-              </button>
-            </td>
-          </tr>
-          <tr
-            data-p-highlight="false"
-            data-p-highlight-contextmenu="false"
-            data-pc-section="bodyrow"
-            role="row"
-          >
-            <td
-              data-p-cell-editing="false"
-              data-p-editable-column="true"
-              data-p-frozen-column="false"
-              data-p-selectable-cell="false"
-              data-p-selection-column="false"
-              data-pc-name="datatable"
-              data-pc-section="bodycell"
-              role="cell"
-            >
-              2012
-            </td>
-            <td
-              class="w-10rem"
-              data-p-cell-editing="false"
-              data-p-editable-column="true"
-              data-p-frozen-column="false"
-              data-p-selectable-cell="false"
-              data-p-selection-column="false"
-              data-pc-name="datatable"
-              data-pc-section="bodycell"
-              role="cell"
-            >
-              <button>
-                Remove from watch list
-              </button>
+              No available options
             </td>
           </tr>
         </tbody>

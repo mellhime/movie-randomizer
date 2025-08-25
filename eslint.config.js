@@ -78,6 +78,26 @@ export default defineConfig([
           ignoreMemberSort: false,
         },
       ],
+      "no-restricted-exports": [
+        "error",
+        { restrictedNamedExports: ["default"] },
+      ],
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "@layouts/**/*",
+                "@modules/**/*",
+                "@hooks/**/*",
+                "@api/**/*",
+              ],
+              message: "Import only from root index.ts module",
+            },
+          ],
+        },
+      ],
     },
     extends: ["js/recommended"],
   },

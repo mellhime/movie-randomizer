@@ -1,6 +1,5 @@
-import { createDefaultPreset } from "ts-jest";
-import { pathsToModuleNameMapper } from "ts-jest";
 import type { Config } from "jest";
+import { createDefaultPreset, pathsToModuleNameMapper } from "ts-jest";
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { compilerOptions } = require("./tsconfig.json");

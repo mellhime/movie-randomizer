@@ -1,9 +1,10 @@
 import { FC } from "react";
-import { MultiSelect } from "primereact/multiselect";
+
 import { Calendar } from "primereact/calendar";
+import { InputText } from "primereact/inputtext";
+import { MultiSelect } from "primereact/multiselect";
 import { Rating } from "primereact/rating";
 import { Slider } from "primereact/slider";
-import { InputText } from "primereact/inputtext";
 
 const Filters: FC = () => {
   return (

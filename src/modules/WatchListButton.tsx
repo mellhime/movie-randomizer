@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { Button } from "primereact/button";
 
 const WatchListButton: FC = () => {

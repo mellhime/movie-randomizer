@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { Card } from "primereact/card";
 
 const MovieInfo: FC = () => {

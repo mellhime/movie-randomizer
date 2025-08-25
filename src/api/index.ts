@@ -12,6 +12,7 @@ const getGenresList = () => {
 
 const getWatchList = () => {
   // https://developer.themoviedb.org/reference/account-watchlist-movies
+  return [];
 };
 
-export { getMovieslist, addToWatchList, getGenresList, getWatchList };
+export { addToWatchList, getGenresList, getMovieslist, getWatchList };

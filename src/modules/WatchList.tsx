@@ -1,10 +1,12 @@
 import { FC } from "react";
-import { useFetch } from "@hooks/useFetch";
-import { DataTable } from "primereact/datatable";
+
 import { Column } from "primereact/column";
+import { DataTable } from "primereact/datatable";
+
+import { getWatchList } from "@api";
 
 const WatchList: FC = () => {
-  const [watchList] = useFetch("watchList");
+  const [watchList] = getWatchList();
 
   const handleClick = (id: number) => {
     console.log(id);

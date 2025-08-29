@@ -15,7 +15,11 @@
       "@modules/*": ["modules/*"],
       "@modules": ["modules"],
       "@styles/*": ["styles/*"],
-      "@styles": ["styles"]
+      "@styles": ["styles"],
+      "@lib/*": ["lib/*"],
+      "@lib": ["lib"],
+      "@entities/*": ["entities/*"],
+      "@entities": ["entities"]
     },
     "jsx": "react-jsx"
   },

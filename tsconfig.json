@@ -1,10 +1,19 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["ESNext", "DOM"],
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["*"],
       "@images/*": ["images/*"],
       "@api/*": ["api/*"],
       "@api": ["api"],

@@ -1,4 +1,4 @@
-import { get, type IQueryParams } from "@lib";
+import { httpClient } from "@lib";
 
 import {
   IGenresRequestDto,
@@ -6,27 +6,17 @@ import {
   IMoviesRequestDto,
 } from "./movies.dto";
 
-const toQuery = <T extends object>(dto: T): IQueryParams => {
-  const query: IQueryParams = {};
-  for (const [key, value] of Object.entries(dto)) {
-    if (value !== undefined) {
-      query[key] = String(value);
-    }
-  }
-  return query;
-};
-
 const getMoviesList = (query?: IMoviesRequestDto) => {
-  return get("discover/movie", { query: toQuery(query) });
+  return httpClient.get("discover/movie", { query });
 };
 
 const addToWatchList = () => {
   // https://developer.themoviedb.org/reference/account-add-to-watchlist
 };
 
-const getGenresList = (query: IGenresRequestDto = {}) => {
-  return get("genre/movie/list", {
-    query: toQuery(query),
+const getGenresList = (query?: IGenresRequestDto) => {
+  return httpClient.get("genre/movie/list", {
+    query,
   }) as Promise<IGenresResponseDto>;
 };
 

@@ -1,22 +1,32 @@
-type IQueryParams = Record<string, string | undefined>;
+type TQueryParams = Record<string, string | number | undefined>;
 
 interface IHttpOptions {
-  query?: IQueryParams;
+  query?: TQueryParams;
   headers?: HeadersInit;
   body?: Record<string, string>;
 }
 
 const BASE_URL = "https://api.themoviedb.org/3/";
-const AUTH_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNGMwZmQzOGU4MGM2MDNlYWYxNTU2ZmU5YzYxYjMzZCIsIm5iZiI6MTc1NjIxMjEzNi4yNTMsInN1YiI6IjY4YWRhYmE4ZWFmNWM4MmQ3ODQ0OThkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5efP0iGItwjEn3IZupDgVl8z7JN6IiNaRFBNvo0HEgc";
 
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
-  Authorization: `Bearer ${AUTH_TOKEN}`,
+  Authorization: `Bearer ${import.meta.env.VITE_MOVIES_API_AUTH_TOKEN}`,
+};
+
+const toQuery = <T extends object>(dto?: T): TQueryParams => {
+  if (!dto) return {};
+
+  const query: TQueryParams = {};
+  for (const [key, value] of Object.entries(dto)) {
+    if (value !== undefined) {
+      query[key] = String(value);
+    }
+  }
+  return query;
 };
 
 const get = (path: string, options: IHttpOptions = {}) => {
-  const params = new URLSearchParams(options.query);
+  const params = new URLSearchParams(toQuery(options.query));
   const pathWithQuery = `${BASE_URL}/${path}${params}`;
 
   return fetch(pathWithQuery, {
@@ -50,4 +60,4 @@ const post = (path: string, options: IHttpOptions = {}) => {
     });
 };
 
-export { get, type IQueryParams, post };
+export { get, post };

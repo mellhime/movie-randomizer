@@ -7,7 +7,10 @@ import { Rating } from "primereact/rating";
 import { Slider } from "primereact/slider";
 
 import { getGenresList } from "@api";
+import { mappedOptions } from "@lib";
 import { IGenre } from "@entities";
+
+import { forms } from "@/texts";
 
 interface IFilters {
   genres: IGenre[];
@@ -27,11 +30,6 @@ const Filters: FC = () => {
   const [genresList, setGenresList] = useState<IGenre[]>([]);
   const [filters, setFilters] = useState<IFilters>(INITIAL_STATE);
 
-  const genresOptions = genresList.map((genre) => ({
-    label: genre.name,
-    value: genre.id,
-  }));
-
   const handleChange = (e: MultiSelectChangeEvent) => {
     setFilters({ ...filters, genres: e.value });
   };
@@ -50,8 +48,8 @@ const Filters: FC = () => {
             Genres
             <MultiSelect
               name="genres"
-              placeholder="Select genres"
-              options={genresOptions}
+              placeholder={forms.genres.placeholder}
+              options={mappedOptions(genresList)}
               value={filters.genres}
               onChange={handleChange}
               showClear

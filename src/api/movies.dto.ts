@@ -1,13 +1,13 @@
 import { IGenre } from "@entities";
 
-interface IMoviesRequestDto {
+type IMoviesRequestDto = {
   genre: string;
   id: number;
-}
+};
 
-interface IGenresRequestDto {
+type IGenresRequestDto = {
   language?: string;
-}
+};
 
 interface IGenresResponseDto {
   genres: IGenre[];

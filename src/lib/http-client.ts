@@ -1,4 +1,7 @@
 type TQueryParams = Record<string, string | number | undefined>;
+type TUrlSearchParamsArgument = ConstructorParameters<
+  typeof URLSearchParams
+>[0];
 
 interface IHttpOptions {
   query?: TQueryParams;
@@ -13,10 +16,10 @@ const DEFAULT_HEADERS = {
   Authorization: `Bearer ${import.meta.env.VITE_MOVIES_API_AUTH_TOKEN}`,
 };
 
-const toQuery = <T extends object>(dto?: T): TQueryParams => {
+const toQuery = <T extends object>(dto?: T): TUrlSearchParamsArgument => {
   if (!dto) return {};
 
-  const query: TQueryParams = {};
+  const query: TUrlSearchParamsArgument = {};
   for (const [key, value] of Object.entries(dto)) {
     if (value !== undefined) {
       query[key] = String(value);
@@ -27,7 +30,7 @@ const toQuery = <T extends object>(dto?: T): TQueryParams => {
 
 const get = (path: string, options: IHttpOptions = {}) => {
   const params = new URLSearchParams(toQuery(options.query));
-  const pathWithQuery = `${BASE_URL}/${path}${params}`;
+  const pathWithQuery = `${BASE_URL}/${path}?${params}`;
 
   return fetch(pathWithQuery, {
     headers: {

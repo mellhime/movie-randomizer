@@ -13,7 +13,7 @@ const BASE_URL = "https://api.themoviedb.org/3/";
 
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
-  Authorization: `Bearer ${import.meta.env.VITE_MOVIES_API_AUTH_TOKEN}`,
+  Authorization: `Bearer ${process.env.MOVIES_API_AUTH_TOKEN}`,
 };
 
 const toQuery = <T extends object>(dto?: T): TUrlSearchParamsArgument => {

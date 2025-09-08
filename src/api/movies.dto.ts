@@ -1,16 +1,16 @@
 import { IGenre } from "@entities";
 
-type IMoviesRequestDto = {
+type TMoviesRequestDto = {
   genre: string;
   id: number;
 };
 
-type IGenresRequestDto = {
+type TGenresRequestDto = {
   language?: string;
 };
 
-interface IGenresResponseDto {
+interface TGenresResponseDto {
   genres: IGenre[];
 }
 
-export { IGenresRequestDto, IGenresResponseDto, IMoviesRequestDto };
+export { TGenresRequestDto, TGenresResponseDto, TMoviesRequestDto };

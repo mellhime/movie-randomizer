@@ -1,0 +1,39 @@
+import react from "@vitejs/plugin-react";
+import { defineConfig, loadEnv } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd());
+
+  const processEnv = Object.keys(env)
+    .filter((key) => key.startsWith("VITE_"))
+    .reduce(
+      (acc, key) => {
+        const newKey = key.replace(/^VITE_/, "");
+        acc[`process.env.${newKey}`] = JSON.stringify(env[key]);
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
+  return {
+    plugins: [react(), tsconfigPaths()],
+    define: processEnv,
+    build: {
+      sourcemap: true,
+      minify: "esbuild",
+    },
+    server: {
+      port: 8000,
+    },
+    preview: {
+      port: 8080,
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+        },
+      },
+    },
+  };
+});

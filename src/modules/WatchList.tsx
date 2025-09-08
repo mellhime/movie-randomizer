@@ -4,6 +4,7 @@ import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 
 import { getWatchList } from "@api";
+import { IMovie } from "@entities";
 
 const WatchList: FC = () => {
   const [watchList] = getWatchList();
@@ -13,7 +14,7 @@ const WatchList: FC = () => {
     // todo call api remove from watch list
   };
 
-  const editButton = (movie) => {
+  const editButton = (movie: IMovie) => {
     return (
       <button onClick={() => handleClick(movie.id)}>
         Remove from watch list

@@ -1,12 +1,12 @@
 import { httpClient } from "@lib";
 
 import {
-  IGenresRequestDto,
-  IGenresResponseDto,
-  IMoviesRequestDto,
+  TGenresRequestDto,
+  TGenresResponseDto,
+  TMoviesRequestDto,
 } from "./movies.dto";
 
-const getMoviesList = (query?: IMoviesRequestDto) => {
+const getMoviesList = (query?: TMoviesRequestDto) => {
   return httpClient.get("discover/movie", { query });
 };
 
@@ -14,10 +14,10 @@ const addToWatchList = () => {
   // https://developer.themoviedb.org/reference/account-add-to-watchlist
 };
 
-const getGenresList = (query?: IGenresRequestDto) => {
+const getGenresList = (query?: TGenresRequestDto) => {
   return httpClient.get("genre/movie/list", {
     query,
-  }) as Promise<IGenresResponseDto>;
+  }) as Promise<TGenresResponseDto>;
 };
 
 const getWatchList = () => {

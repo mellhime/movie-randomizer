@@ -9,14 +9,16 @@ interface IHttpOptions {
   body?: Record<string, string>;
 }
 
-const BASE_URL = "https://api.themoviedb.org/3/";
+const BASE_URL = "https://api.themoviedb.org/3";
 
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${process.env.MOVIES_API_AUTH_TOKEN}`,
 };
 
-const toQuery = <T extends object>(dto?: T): TUrlSearchParamsArgument => {
+const stringifyParams = <T extends object>(
+  dto?: T,
+): TUrlSearchParamsArgument => {
   if (!dto) return {};
 
   const query: TUrlSearchParamsArgument = {};
@@ -28,11 +30,16 @@ const toQuery = <T extends object>(dto?: T): TUrlSearchParamsArgument => {
   return query;
 };
 
-const get = (path: string, options: IHttpOptions = {}) => {
-  const params = new URLSearchParams(toQuery(options.query));
-  const pathWithQuery = `${BASE_URL}/${path}?${params}`;
+const preparedPath = (path: string, query?: TQueryParams) => {
+  const basePath = `${BASE_URL}/${path}`;
+  if (!query) return basePath;
 
-  return fetch(pathWithQuery, {
+  const params = new URLSearchParams(stringifyParams(query));
+  return `${basePath}?${params}`;
+};
+
+const get = (path: string, options: IHttpOptions = {}) => {
+  return fetch(preparedPath(path, options.query), {
     headers: {
       ...DEFAULT_HEADERS,
       ...options.headers,

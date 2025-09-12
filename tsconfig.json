@@ -1,17 +1,36 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["ESNext", "DOM"],
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["*"],
       "@images/*": ["images/*"],
       "@api/*": ["api/*"],
+      "@api": ["api"],
       "@hooks/*": ["hooks/*"],
+      "@hooks": ["hooks"],
       "@layouts/*": ["layouts/*"],
-      "@modules/*": ["modules/*"]
+      "@layouts": ["layouts"],
+      "@modules/*": ["modules/*"],
+      "@modules": ["modules"],
+      "@styles/*": ["styles/*"],
+      "@styles": ["styles"],
+      "@lib/*": ["lib/*"],
+      "@lib": ["lib"],
+      "@entities/*": ["entities/*"],
+      "@entities": ["entities"]
     },
     "jsx": "react-jsx"
   },
-  "include": ["src/**/*", "modules.d.ts"]
+  "include": ["src", "modules.d.ts"]
 }

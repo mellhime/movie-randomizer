@@ -1,17 +1,28 @@
-const getMovieslist = () => {
-  // https://developer.themoviedb.org/reference/discover-movie
+import { httpClient } from "@lib";
+
+import {
+  TGenresRequestDto,
+  TGenresResponseDto,
+  TMoviesRequestDto,
+} from "./movies.dto";
+
+const getMoviesList = (query?: TMoviesRequestDto) => {
+  return httpClient.get("discover/movie", { query });
 };
 
 const addToWatchList = () => {
   // https://developer.themoviedb.org/reference/account-add-to-watchlist
 };
 
-const getGenresList = () => {
-  // https://developer.themoviedb.org/reference/genre-movie-list
+const getGenresList = (query?: TGenresRequestDto) => {
+  return httpClient.get("genre/movie/list", {
+    query,
+  }) as Promise<TGenresResponseDto>;
 };
 
 const getWatchList = () => {
   // https://developer.themoviedb.org/reference/account-watchlist-movies
+  return [];
 };
 
-export { getMovieslist, addToWatchList, getGenresList, getWatchList };
+export { addToWatchList, getGenresList, getMoviesList, getWatchList };

@@ -1,7 +1,9 @@
 import { FC } from "react";
-import { Filters } from "./SearchBlock/Filters";
+
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
+
+import { Filters } from "./Filters";
 
 const SearchBlock: FC = () => {
   return (

@@ -1,3 +1,5 @@
+import { convertSnakeToCamel } from "./helpers";
+
 type TQueryParams = Record<string, string | number | undefined>;
 type TUrlSearchParamsArgument = ConstructorParameters<
   typeof URLSearchParams
@@ -45,7 +47,12 @@ const get = (path: string, options: IHttpOptions = {}) => {
       ...options.headers,
     },
   })
-    .then((response) => response.json())
+    .then(async (response) => {
+      return await response.json().then((body) => ({
+        data: convertSnakeToCamel(body),
+        headers: response.headers,
+      }));
+    })
     .catch((error) => {
       // todo ErrorHandler
       throw error;

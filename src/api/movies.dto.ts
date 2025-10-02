@@ -1,8 +1,12 @@
-import { IGenre } from "@entities";
+import { IGenre, IMovie } from "@entities";
 
 type TMoviesRequestDto = {
-  genre: string;
-  id: number;
+  withGenres: string;
+  "with_runtime.gte": number;
+  "with_runtime.lte": number;
+  "vote_average.gte": number;
+  "release_date.gte"?: string;
+  "release_date.lte"?: string;
 };
 
 type TGenresRequestDto = {
@@ -13,4 +17,16 @@ interface TGenresResponseDto {
   genres: IGenre[];
 }
 
-export { TGenresRequestDto, TGenresResponseDto, TMoviesRequestDto };
+interface TMoviesResponseDto {
+  results: IMovie[];
+  page: number;
+  totalPages: number;
+  totalResults: number;
+}
+
+export {
+  TGenresRequestDto,
+  TGenresResponseDto,
+  TMoviesRequestDto,
+  TMoviesResponseDto,
+};

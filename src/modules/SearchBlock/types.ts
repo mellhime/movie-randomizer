@@ -1,18 +1,18 @@
+import React from "react";
+
 import { MultiSelectChangeEvent } from "primereact/multiselect";
 import { RatingChangeEvent } from "primereact/rating";
 
-interface CalendarChangeCustomEvent {
-  originalEvent?: Event;
-  value: Date | Date[] | null;
-  target: {
-    name: string;
-  };
+interface CalendarFormEvent {
+  originalEvent: React.SyntheticEvent;
+  value: (Date | null)[];
+  target: { name: string };
 }
 
 type TFilterChangeEvent =
+  | CalendarFormEvent
   | MultiSelectChangeEvent
-  | RatingChangeEvent
-  | CalendarChangeCustomEvent;
+  | RatingChangeEvent;
 
 type TMoviesParams = {
   genres: number[];

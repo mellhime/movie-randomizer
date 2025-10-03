@@ -47,8 +47,8 @@ const get = (path: string, options: IHttpOptions = {}) => {
       ...options.headers,
     },
   })
-    .then(async (response) => {
-      return await response.json().then((body) => ({
+    .then((response) => {
+      return response.json().then((body) => ({
         data: convertSnakeToCamel(body),
         headers: response.headers,
       }));

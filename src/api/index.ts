@@ -25,14 +25,14 @@ const convertFiltersToPayload = (params: TMoviesParams) => {
     payload["release_date.lte"] = formatDate(params.releaseYears[1]);
   }
 
-  return convertCamelToSnake(payload);
+  return payload;
 };
 
 const getMoviesList = (params: TMoviesParams) => {
   const query = convertFiltersToPayload(params);
 
   return httpClient
-    .get("discover/movie", { query })
+    .get("discover/movie", { query: convertCamelToSnake(query) })
     .then(({ data }) => data) as Promise<TMoviesResponseDto>;
 };
 

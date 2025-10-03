@@ -71,7 +71,7 @@ const Filters: FC<IProps> = ({
               stars={10}
             />
           </label>
-          <label className="flex flex-column w-4 gap-2">
+          <label className="flex flex-column gap-2 w-4">
             Runtime (min)
             <Slider
               value={filters.runtime}

@@ -1,13 +1,13 @@
-import React from "react";
-
 import { MultiSelectChangeEvent } from "primereact/multiselect";
 import { RatingChangeEvent } from "primereact/rating";
+import { FormTarget, Nullable } from "primereact/ts-helpers";
 
-interface CalendarFormEvent {
-  originalEvent: React.SyntheticEvent;
-  value: (Date | null)[];
-  target: { name: string };
+interface FormEvent<T> {
+  value: Nullable<T>;
+  target: FormTarget<T>;
 }
+
+type CalendarFormEvent = FormEvent<(Date | null)[]>;
 
 type TFilterChangeEvent =
   | CalendarFormEvent
@@ -15,10 +15,14 @@ type TFilterChangeEvent =
   | RatingChangeEvent;
 
 type TMoviesParams = {
-  genres: number[];
+  genres: TGenreId[];
   score: number;
   releaseYears: Date[];
   runtime: [number, number];
 };
 
-export { TFilterChangeEvent, TMoviesParams };
+type TGenresParams = {
+  language?: string;
+};
+
+export { TFilterChangeEvent, TGenresParams, TMoviesParams };

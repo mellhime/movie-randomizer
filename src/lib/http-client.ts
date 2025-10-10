@@ -1,4 +1,4 @@
-import { convertSnakeToCamel } from "./helpers";
+import { objectToCamel } from "ts-case-convert";
 
 type TQueryParams = Record<string, string | number | undefined>;
 type TUrlSearchParamsArgument = ConstructorParameters<
@@ -49,7 +49,7 @@ const get = (path: string, options: IHttpOptions = {}) => {
   })
     .then((response) => {
       return response.json().then((body) => ({
-        data: convertSnakeToCamel(body),
+        data: objectToCamel(body),
         headers: response.headers,
       }));
     })

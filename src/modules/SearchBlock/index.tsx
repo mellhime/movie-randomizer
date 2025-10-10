@@ -1,13 +1,14 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
+import { SliderChangeEvent } from "primereact/slider";
 
-import { getMoviesList } from "@api";
+import { useRequests } from "@hooks";
 import { IMovie } from "@entities";
 
-import { Filters } from "./Filters";
 import { randChoice } from "./helpers";
+import { MovieOptions } from "./MovieOptions";
 import { TFilterChangeEvent, TMoviesParams } from "./types";
 
 const INITIAL_STATE: TMoviesParams = {
@@ -19,22 +20,30 @@ const INITIAL_STATE: TMoviesParams = {
 
 const SearchBlock: FC = () => {
   const [movieInfo, setMovieInfo] = useState<IMovie | null>(null);
-  const [filters, setFilters] = useState<TMoviesParams>(INITIAL_STATE);
+  const [movieOptions, setMovieOptions] =
+    useState<TMoviesParams>(INITIAL_STATE);
+  const { handleGetMoviesList } = useRequests();
 
   const handleChange = (e: TFilterChangeEvent) => {
-    setFilters({ ...filters, [e.target.name]: e.value });
+    setMovieOptions({ ...movieOptions, [e.target.name]: e.value });
   };
 
-  const handleChangeRuntime = (value: number | [number, number]) => {
+  // todo move to common handler
+  const handleChangeRuntime = (event: SliderChangeEvent) => {
+    const { value } = event;
     const runtime: [number, number] = Array.isArray(value)
       ? (value as [number, number])
       : [value as number, value as number];
 
-    setFilters({ ...filters, runtime });
+    setMovieOptions({ ...movieOptions, runtime });
   };
 
+  // const Component = () => {
+  //   const { handleGetMoviesList } = useRequests()
+  // принимает параметры с типами TMoviesParams, внутри  перед обращением к api.getMoviesList преобразование через вспомогательную ф-цию
+
   const handleSubmit = () => {
-    getMoviesList(filters).then((data) => {
+    handleGetMoviesList(movieOptions).then((data) => {
       const randomMovie: IMovie = randChoice(data.results);
       setMovieInfo(randomMovie);
     });
@@ -44,14 +53,14 @@ const SearchBlock: FC = () => {
 
   return (
     <>
-      <h2>Search filters</h2>
+      <h2>Search options</h2>
       <Card className="w-6">
         <form className="flex align-items-center flex-column">
-          <Filters
-            filters={filters}
+          <MovieOptions
+            options={movieOptions}
             onChange={handleChange}
             onChangeRuntime={handleChangeRuntime}
-          ></Filters>
+          />
           <Button
             className="p-button-secondary m-5"
             type="button"

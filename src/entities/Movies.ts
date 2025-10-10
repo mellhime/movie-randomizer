@@ -1,8 +1,8 @@
 interface IMovie {
   title: string;
-  id: number;
+  id: TMovieId;
   backdropPath: string;
-  genreIds: number[];
+  genreIds: TGenreId[];
   originalLanguage: string;
   overview: string;
   posterPath: string;

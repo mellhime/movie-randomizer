@@ -3,9 +3,9 @@ import { FC, useEffect, useState } from "react";
 import { Calendar } from "primereact/calendar";
 import { MultiSelect } from "primereact/multiselect";
 import { Rating } from "primereact/rating";
-import { Slider } from "primereact/slider";
+import { Slider, SliderChangeEvent } from "primereact/slider";
 
-import { getGenresList } from "@api";
+import { useRequests } from "@hooks";
 import { mappedOptions } from "@lib";
 import { IGenre } from "@entities";
 
@@ -14,20 +14,23 @@ import { TFilterChangeEvent, TMoviesParams } from "./types";
 import { forms } from "@/texts";
 
 interface IProps {
-  filters: TMoviesParams;
+  options: TMoviesParams;
   onChange: (e: TFilterChangeEvent) => void;
-  onChangeRuntime: (value: number | [number, number]) => void;
+  onChangeRuntime: (e: SliderChangeEvent) => void;
 }
 
-const Filters: FC<IProps> = ({
-  filters,
+const MovieOptions: FC<IProps> = ({
+  options,
   onChange: handleChange,
   onChangeRuntime: handleChangeRuntime,
 }) => {
   const [genresList, setGenresList] = useState<IGenre[]>([]);
+  const { handleGetGenresList } = useRequests();
+
+  const runtimeBorders = `${options.runtime[0]} - ${options.runtime[1]}`;
 
   useEffect(() => {
-    getGenresList().then((data) => {
+    handleGetGenresList().then((data) => {
       setGenresList(data.genres);
     });
   }, []);
@@ -42,7 +45,7 @@ const Filters: FC<IProps> = ({
               name="genres"
               placeholder={forms.genres.placeholder}
               options={mappedOptions(genresList)}
-              value={filters.genres}
+              value={options.genres}
               onChange={handleChange}
               showClear
             />
@@ -51,7 +54,7 @@ const Filters: FC<IProps> = ({
             Release year
             <Calendar
               name="releaseYears"
-              value={filters.releaseYears}
+              value={options.releaseYears}
               onChange={handleChange}
               view="year"
               dateFormat="yy"
@@ -66,7 +69,7 @@ const Filters: FC<IProps> = ({
             Score
             <Rating
               name="score"
-              value={filters.score}
+              value={options.score}
               onChange={handleChange}
               stars={10}
             />
@@ -74,14 +77,14 @@ const Filters: FC<IProps> = ({
           <label className="flex flex-column gap-2 w-4">
             Runtime (min)
             <Slider
-              value={filters.runtime}
+              value={options.runtime}
               name="runtime"
               range
               min={0}
               max={500}
-              onChange={(e) => handleChangeRuntime(e.value)}
+              onChange={handleChangeRuntime}
             />
-            {`${filters.runtime[0]} - ${filters.runtime[1]}`}
+            {runtimeBorders}
           </label>
         </div>
       </div>
@@ -89,4 +92,4 @@ const Filters: FC<IProps> = ({
   );
 };
 
-export { Filters };
+export { MovieOptions };

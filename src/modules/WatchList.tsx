@@ -3,11 +3,11 @@ import { FC } from "react";
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
 
-import { getWatchList } from "@api";
+import { moviesApi } from "@api";
 import { IMovie } from "@entities";
 
 const WatchList: FC = () => {
-  const [watchList] = getWatchList();
+  const [watchList] = moviesApi.getWatchList();
 
   const handleClick = (id: number) => {
     console.log(id);

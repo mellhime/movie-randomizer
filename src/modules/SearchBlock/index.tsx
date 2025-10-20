@@ -19,7 +19,7 @@ const INITIAL_STATE: TMoviesParams = {
 };
 
 const SearchBlock: FC = () => {
-  const [movieInfo, setMovieInfo] = useState<IMovie | null>(null);
+  const [, setMovieInfo] = useState<IMovie | null>(null);
   const [movieOptions, setMovieOptions] =
     useState<TMoviesParams>(INITIAL_STATE);
   const { handleGetMoviesList } = useRequests();
@@ -38,18 +38,12 @@ const SearchBlock: FC = () => {
     setMovieOptions({ ...movieOptions, runtime });
   };
 
-  // const Component = () => {
-  //   const { handleGetMoviesList } = useRequests()
-  // принимает параметры с типами TMoviesParams, внутри  перед обращением к api.getMoviesList преобразование через вспомогательную ф-цию
-
   const handleSubmit = () => {
     handleGetMoviesList(movieOptions).then((data) => {
       const randomMovie: IMovie = randChoice(data.results);
       setMovieInfo(randomMovie);
     });
   };
-
-  console.log(movieInfo);
 
   return (
     <>

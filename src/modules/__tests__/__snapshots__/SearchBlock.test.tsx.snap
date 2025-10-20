@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBlock component should match snapshot 1`] = `
+<DocumentFragment>
+  <h2>
+    Search options
+  </h2>
+  <div
+    class="w-6 p-card p-component"
+    data-pc-name="card"
+    data-pc-section="root"
+  >
+    <div
+      class="p-card-body"
+      data-pc-section="body"
+    >
+      <div
+        class="p-card-content"
+        data-pc-section="content"
+      >
+        <form
+          class="flex align-items-center flex-column"
+        >
+          <button
+            data-testid="mock-rating"
+          >
+            Mock Rating
+          </button>
+          <button
+            class="p-button-secondary m-5 p-button p-component"
+            data-pc-name="button"
+            data-pc-section="root"
+            type="button"
+          >
+            Get a random movie
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

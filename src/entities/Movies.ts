@@ -7,7 +7,7 @@ interface IMovie {
   overview: string;
   posterPath: string;
   releaseDate: string;
-  voteAverage: number; // 8.25
+  voteAverage: number;
 }
 
 export { IMovie };

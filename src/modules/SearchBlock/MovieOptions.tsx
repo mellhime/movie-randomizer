@@ -11,8 +11,6 @@ import { IGenre } from "@entities";
 
 import { TFilterChangeEvent, TMoviesParams } from "./types";
 
-import { forms } from "@/texts";
-
 interface IProps {
   options: TMoviesParams;
   onChange: (e: TFilterChangeEvent) => void;
@@ -43,10 +41,10 @@ const MovieOptions: FC<IProps> = ({
             Genres
             <MultiSelect
               name="genres"
-              placeholder={forms.genres.placeholder}
               options={mappedOptions(genresList)}
               value={options.genres}
               onChange={handleChange}
+              data-testid="genres"
               showClear
             />
           </label>

@@ -13,7 +13,7 @@ const defaultPreset = createDefaultEsmPreset({
 const jestConfig: Config = {
   ...defaultPreset,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  testEnvironment: "@happy-dom/jest-environment", // note: https://github.com/thymikee/jest-preset-angular/issues/2194
+  testEnvironment: "jsdom", // note: https://github.com/jsdom/jsdom/issues/2177
   roots: ["<rootDir>"],
   modulePaths: [compilerOptions.baseUrl],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),

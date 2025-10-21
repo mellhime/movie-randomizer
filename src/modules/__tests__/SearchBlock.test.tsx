@@ -47,7 +47,7 @@ describe("SearchBlock component", () => {
     });
   });
 
-  fit("should match snapshot", () => {
+  it("should match snapshot", () => {
     const { asFragment } = render(<SearchBlock />);
     expect(asFragment()).toMatchSnapshot();
   });

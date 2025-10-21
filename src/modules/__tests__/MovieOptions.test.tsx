@@ -33,7 +33,7 @@ describe("MovieOptions component", () => {
     });
   });
 
-  it("should match snapshot", () => {
+  it("should match snapshot", async () => {
     const { asFragment } = render(
       <MovieOptions
         options={baseOptions}
@@ -41,6 +41,11 @@ describe("MovieOptions component", () => {
         onChangeRuntime={mockOnChangeRuntime}
       />,
     );
+
+    await waitFor(() => {
+      expect(mockHandleGetGenresList).toHaveBeenCalled();
+    });
+
     expect(asFragment()).toMatchSnapshot();
   });
 

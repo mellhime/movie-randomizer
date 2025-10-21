@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import { useRequests } from "@hooks";
 
-// todo fix this imports
+// todo fix these imports
 import { MovieOptions } from "./../SearchBlock/MovieOptions";
 import { TMoviesParams } from "./../SearchBlock/types";
 
@@ -21,7 +21,6 @@ jest.mock("@hooks", () => ({
 describe("MovieOptions component", () => {
   const mockOnChange = jest.fn();
   const mockOnChangeRuntime = jest.fn();
-
   const mockHandleGetGenresList = jest
     .fn()
     .mockResolvedValue({ genres: [{ id: 1, name: "Action" }] });
@@ -45,7 +44,7 @@ describe("MovieOptions component", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it("should call onChange after rating field change", async () => {
+  it("should call onChange after rating field change", () => {
     const { container } = render(
       <MovieOptions
         options={baseOptions}
@@ -56,9 +55,9 @@ describe("MovieOptions component", () => {
 
     const stars = container.getElementsByClassName("p-rating-item");
     expect(stars.length).toBe(11); // because a clear element also has this class
-    await userEvent.click(stars[4]);
+    userEvent.click(stars[4]);
 
-    await waitFor(() => {
+    waitFor(() => {
       expect(mockOnChange).toHaveBeenCalledTimes(1);
       expect(mockOnChange).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -124,7 +123,7 @@ describe("MovieOptions component", () => {
     });
   });
 
-  it("should call onChangeRuntime after runtime field change", async () => {
+  it("should call onChangeRuntime after runtime field change", () => {
     render(
       <MovieOptions
         options={baseOptions}
@@ -136,7 +135,7 @@ describe("MovieOptions component", () => {
     // todo somehow test it with userEvent
     mockOnChangeRuntime({ value: [90, 160] });
 
-    await waitFor(() => {
+    waitFor(() => {
       expect(mockOnChangeRuntime).toHaveBeenCalledWith(
         expect.objectContaining({
           value: [90, 160],

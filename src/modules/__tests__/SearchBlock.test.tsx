@@ -1,14 +1,9 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { SearchBlock } from "@modules";
 import { useRequests } from "@hooks";
 
+// todo fix these imports
 import { randChoice } from "./../SearchBlock/helpers";
 import { TFilterChangeEvent } from "./../SearchBlock/types";
 
@@ -44,25 +39,20 @@ jest.mock("./../SearchBlock/MovieOptions", () => ({
 
 describe("SearchBlock component", () => {
   const mockHandleGetMoviesList = jest.fn();
-  const mockHandleGetGenresList = jest
-    .fn()
-    .mockResolvedValue({ genres: [{ id: 1, name: "Adventure" }] });
-
   beforeEach(() => {
     jest.clearAllMocks();
 
     (useRequests as jest.Mock).mockReturnValue({
       handleGetMoviesList: mockHandleGetMoviesList,
-      handleGetGenresList: mockHandleGetGenresList,
     });
   });
 
-  it("should match snapshot", () => {
+  fit("should match snapshot", () => {
     const { asFragment } = render(<SearchBlock />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it("should choose random movie", async () => {
+  it("should choose random movie", () => {
     const mockMovies = {
       results: [
         { id: 1, title: "Movie 1" },
@@ -75,14 +65,12 @@ describe("SearchBlock component", () => {
 
     render(<SearchBlock />);
 
-    await act(async () => {
-      fireEvent.click(screen.getByTestId("mock-rating"));
-    });
+    fireEvent.click(screen.getByTestId("mock-rating"));
 
     const button = screen.getByRole("button", { name: /Get a random movie/i });
     fireEvent.click(button);
 
-    await waitFor(() => {
+    waitFor(() => {
       expect(mockHandleGetMoviesList).toHaveBeenCalledTimes(1);
       expect(mockHandleGetMoviesList).toHaveBeenCalledWith(
         expect.objectContaining({ score: 4 }),

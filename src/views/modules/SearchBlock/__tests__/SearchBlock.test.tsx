@@ -1,23 +1,22 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { SearchBlock } from "@modules";
-import { useRequests } from "@hooks";
 
-// todo fix these imports
-import { randChoice } from "./../SearchBlock/helpers";
-import { TFilterChangeEvent } from "./../SearchBlock/types";
+import { randChoice } from "../helpers";
+import { useGetMovies } from "../hooks";
+import { TFilterChangeEvent } from "../types";
 
 import "@testing-library/jest-dom";
 
-jest.mock("@hooks", () => ({
-  useRequests: jest.fn(),
+jest.mock("../hooks", () => ({
+  useGetMovies: jest.fn(),
 }));
 
-jest.mock("./../SearchBlock/helpers", () => ({
+jest.mock("../helpers", () => ({
   randChoice: jest.fn(),
 }));
 
-jest.mock("./../SearchBlock/MovieOptions", () => ({
+jest.mock("../MovieOptions", () => ({
   MovieOptions: ({
     onChange,
   }: {
@@ -42,7 +41,7 @@ describe("SearchBlock component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    (useRequests as jest.Mock).mockReturnValue({
+    (useGetMovies as jest.Mock).mockReturnValue({
       handleGetMoviesList: mockHandleGetMoviesList,
     });
   });

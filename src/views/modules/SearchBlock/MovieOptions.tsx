@@ -5,10 +5,10 @@ import { MultiSelect } from "primereact/multiselect";
 import { Rating } from "primereact/rating";
 import { Slider, SliderChangeEvent } from "primereact/slider";
 
-import { useRequests } from "@hooks";
 import { mappedOptions } from "@lib";
 import { IGenre } from "@entities";
 
+import { useGetGenres } from "./hooks";
 import { TFilterChangeEvent, TMoviesParams } from "./types";
 
 interface IProps {
@@ -23,7 +23,7 @@ const MovieOptions: FC<IProps> = ({
   onChangeRuntime: handleChangeRuntime,
 }) => {
   const [genresList, setGenresList] = useState<IGenre[]>([]);
-  const { handleGetGenresList } = useRequests();
+  const { handleGetGenresList } = useGetGenres();
 
   const runtimeBorders = `${options.runtime[0]} - ${options.runtime[1]}`;
 

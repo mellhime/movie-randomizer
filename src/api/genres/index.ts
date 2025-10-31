@@ -1,6 +1,6 @@
-import { TGenresRequestDto, TGenresResponseDto } from "./genres.dto";
+import { httpClient } from "@lib";
 
-import { httpClient } from "@/lib";
+import { TGenresRequestDto, TGenresResponseDto } from "./genres.dto";
 
 const getGenresList = (query?: TGenresRequestDto) => {
   return httpClient

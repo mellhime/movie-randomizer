@@ -4,10 +4,10 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { SliderChangeEvent } from "primereact/slider";
 
-import { useRequests } from "@hooks";
 import { IMovie } from "@entities";
 
 import { randChoice } from "./helpers";
+import { useGetMovies } from "./hooks";
 import { MovieOptions } from "./MovieOptions";
 import { TFilterChangeEvent, TMoviesParams } from "./types";
 
@@ -22,7 +22,7 @@ const SearchBlock: FC = () => {
   const [, setMovieInfo] = useState<IMovie | null>(null);
   const [movieOptions, setMovieOptions] =
     useState<TMoviesParams>(INITIAL_STATE);
-  const { handleGetMoviesList } = useRequests();
+  const { handleGetMoviesList } = useGetMovies();
 
   const handleChange = (e: TFilterChangeEvent) => {
     setMovieOptions({ ...movieOptions, [e.target.name]: e.value });

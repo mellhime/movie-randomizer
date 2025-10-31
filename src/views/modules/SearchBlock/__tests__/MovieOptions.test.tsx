@@ -1,11 +1,10 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { useRequests } from "@hooks";
+import { TMoviesParams } from "@modules";
 
-// todo fix these imports
-import { MovieOptions } from "./../SearchBlock/MovieOptions";
-import { TMoviesParams } from "./../SearchBlock/types";
+import { useGetGenres } from "../hooks";
+import { MovieOptions } from "../MovieOptions";
 
 const baseOptions: TMoviesParams = {
   genres: [],
@@ -14,8 +13,8 @@ const baseOptions: TMoviesParams = {
   score: 0,
 };
 
-jest.mock("@hooks", () => ({
-  useRequests: jest.fn(),
+jest.mock("../hooks", () => ({
+  useGetGenres: jest.fn(),
 }));
 
 describe("MovieOptions component", () => {
@@ -28,7 +27,7 @@ describe("MovieOptions component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    (useRequests as jest.Mock).mockReturnValue({
+    (useGetGenres as jest.Mock).mockReturnValue({
       handleGetGenresList: mockHandleGetGenresList,
     });
   });

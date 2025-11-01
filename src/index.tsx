@@ -5,9 +5,9 @@ import "primereact/resources/themes/mira/theme.css";
 import "primeflex/primeflex.scss";
 import "@styles/index.scss";
 
-import { App } from "./App";
+import { App } from "@views/App";
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root")!);
 
 root.render(
   <StrictMode>

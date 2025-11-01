@@ -1,5 +1,5 @@
 interface IGenre {
-  id: number;
+  id: TGenreId;
   name: string;
 }
 

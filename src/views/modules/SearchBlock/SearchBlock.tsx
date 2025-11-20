@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
+import { Divider } from "primereact/divider";
 import { SliderChangeEvent } from "primereact/slider";
 
 import { IMovie } from "@entities";
@@ -18,8 +19,11 @@ const INITIAL_STATE: TMoviesParams = {
   score: 0,
 };
 
-const SearchBlock: FC = () => {
-  const [, setMovieInfo] = useState<IMovie | null>(null);
+interface IProps {
+  onMovieChange: (movie: IMovie) => void;
+}
+
+const SearchBlock: FC<IProps> = ({ onMovieChange: handleMovieChange }) => {
   const [movieOptions, setMovieOptions] =
     useState<TMoviesParams>(INITIAL_STATE);
   const { handleGetMoviesList } = useGetMovies();
@@ -40,8 +44,9 @@ const SearchBlock: FC = () => {
 
   const handleSubmit = () => {
     handleGetMoviesList(movieOptions).then((data) => {
+      console.log(data);
       const randomMovie: IMovie = randChoice(data.results);
-      setMovieInfo(randomMovie);
+      handleMovieChange(randomMovie);
     });
   };
 
@@ -64,6 +69,7 @@ const SearchBlock: FC = () => {
           </Button>
         </form>
       </Card>
+      <Divider></Divider>
     </>
   );
 };

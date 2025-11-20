@@ -38,5 +38,18 @@ exports[`SearchBlock component should match snapshot 1`] = `
       </div>
     </div>
   </div>
+  <div
+    aria-orientation="horizontal"
+    class="p-divider p-component p-divider-horizontal p-divider-solid p-divider-left"
+    data-pc-name="divider"
+    data-pc-section="root"
+    role="separator"
+    style="justify-content: center;"
+  >
+    <div
+      class="p-divider-content"
+      data-pc-section="content"
+    />
+  </div>
 </DocumentFragment>
 `;

@@ -37,6 +37,7 @@ jest.mock("../MovieOptions", () => ({
 }));
 
 describe("SearchBlock component", () => {
+  const mockOnMovieChange = jest.fn();
   const mockHandleGetMoviesList = jest.fn();
   beforeEach(() => {
     jest.clearAllMocks();
@@ -47,7 +48,9 @@ describe("SearchBlock component", () => {
   });
 
   it("should match snapshot", () => {
-    const { asFragment } = render(<SearchBlock />);
+    const { asFragment } = render(
+      <SearchBlock onMovieChange={mockOnMovieChange} />,
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -62,7 +65,7 @@ describe("SearchBlock component", () => {
     mockHandleGetMoviesList.mockResolvedValueOnce(mockMovies);
     (randChoice as jest.Mock).mockReturnValueOnce(mockMovies.results[0]);
 
-    render(<SearchBlock />);
+    render(<SearchBlock onMovieChange={mockOnMovieChange} />);
 
     fireEvent.click(screen.getByTestId("mock-rating"));
 

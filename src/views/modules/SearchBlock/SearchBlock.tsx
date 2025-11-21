@@ -3,21 +3,23 @@ import { FC, useState } from "react";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Divider } from "primereact/divider";
-import { SliderChangeEvent } from "primereact/slider";
 
+import { useGetMovies } from "@modules";
 import { IMovie } from "@entities";
 
-import { randChoice } from "./helpers";
-import { useGetMovies } from "./hooks";
+import { TFilterChangeEvent, TMoviesParams } from "./../types";
+import { randChoice, randomPage } from "./helpers";
 import { MovieOptions } from "./MovieOptions";
-import { TFilterChangeEvent, TMoviesParams } from "./types";
 
 const INITIAL_STATE: TMoviesParams = {
   genres: [],
   releaseYears: [],
   runtime: [60, 180],
   score: 0,
+  page: 1,
 };
+
+const PAGES_LIMIT = 500;
 
 interface IProps {
   onMovieChange: (movie: IMovie) => void;
@@ -28,23 +30,17 @@ const SearchBlock: FC<IProps> = ({ onMovieChange: handleMovieChange }) => {
     useState<TMoviesParams>(INITIAL_STATE);
   const { handleGetMoviesList } = useGetMovies();
 
-  const handleChange = (e: TFilterChangeEvent) => {
-    setMovieOptions({ ...movieOptions, [e.target.name]: e.value });
-  };
+  const handleChange = (event: TFilterChangeEvent) => {
+    const name = "target" in event ? event.target.name : "runtime";
 
-  // todo move to common handler
-  const handleChangeRuntime = (event: SliderChangeEvent) => {
-    const { value } = event;
-    const runtime: [number, number] = Array.isArray(value)
-      ? (value as [number, number])
-      : [value as number, value as number];
-
-    setMovieOptions({ ...movieOptions, runtime });
+    setMovieOptions({ ...movieOptions, [name]: event.value });
   };
 
   const handleSubmit = () => {
-    handleGetMoviesList(movieOptions).then((data) => {
-      console.log(data);
+    handleGetMoviesList({
+      ...movieOptions,
+      page: randomPage(PAGES_LIMIT),
+    }).then((data) => {
       const randomMovie: IMovie = randChoice(data.results);
       handleMovieChange(randomMovie);
     });
@@ -55,11 +51,7 @@ const SearchBlock: FC<IProps> = ({ onMovieChange: handleMovieChange }) => {
       <h2>Search options</h2>
       <Card className="w-6">
         <form className="flex align-items-center flex-column">
-          <MovieOptions
-            options={movieOptions}
-            onChange={handleChange}
-            onChangeRuntime={handleChangeRuntime}
-          />
+          <MovieOptions options={movieOptions} onChange={handleChange} />
           <Button
             className="p-button-secondary m-5"
             type="button"

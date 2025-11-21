@@ -3,11 +3,12 @@ import { TMoviesRequestDto } from "@api";
 import { formatDate } from "@lib";
 
 const convertFiltersToPayload = (params: TMoviesParams): TMoviesRequestDto => {
-  const { genres, runtime, score, releaseYears } = params;
+  const { genres, runtime, score, releaseYears, page } = params;
   const payload: TMoviesRequestDto = {
     withGenres: genres.join(","),
     "withRuntime.gte": runtime[0],
     "withRuntime.lte": runtime[1],
+    page,
   };
   if (score && score !== 0) {
     payload["voteAverage.gte"] = score;

@@ -3,10 +3,9 @@ import { FC, useEffect, useState } from "react";
 import { Card } from "primereact/card";
 import { Knob } from "primereact/knob";
 
+import { useGetGenres } from "@modules";
 import { IGenre, IMovie } from "@entities";
-
-import { useGetGenres } from "../modules/SearchBlock/hooks";
-const IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
+const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 interface IProps {
   movieInfo: IMovie | null;

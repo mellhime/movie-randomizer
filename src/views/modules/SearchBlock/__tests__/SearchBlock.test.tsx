@@ -1,14 +1,14 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-import { SearchBlock } from "@modules";
+import { useGetMovies } from "@modules";
 
+import { TFilterChangeEvent } from "../../types";
 import { randChoice } from "../helpers";
-import { useGetMovies } from "../hooks";
-import { TFilterChangeEvent } from "../types";
+import { SearchBlock } from "../SearchBlock";
 
 import "@testing-library/jest-dom";
 
-jest.mock("../hooks", () => ({
+jest.mock("@modules", () => ({
   useGetMovies: jest.fn(),
 }));
 

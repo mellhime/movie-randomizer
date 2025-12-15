@@ -19,6 +19,7 @@ const App: FC = () => {
       />
       <Divider></Divider>
       <MiddlePanel content={<SearchBlock onMovieChange={setMovieInfo} />} />
+      <Divider></Divider>
       <LowerPanel content={<MovieInfo movieInfo={movieInfo} />} />
     </main>
   );

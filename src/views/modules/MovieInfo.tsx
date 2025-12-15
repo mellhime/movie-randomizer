@@ -16,12 +16,10 @@ const MovieInfo: FC<IProps> = ({ movieInfo }) => {
   const { handleGetGenresList } = useGetGenres();
 
   useEffect(() => {
-    if (movieInfo) {
-      handleGetGenresList().then((data) => {
-        setGenresList(data.genres);
-      });
-    }
-  }, [movieInfo]);
+    handleGetGenresList().then((data) => {
+      setGenresList(data.genres);
+    });
+  }, []);
 
   if (!movieInfo) {
     return null;
@@ -44,10 +42,8 @@ const MovieInfo: FC<IProps> = ({ movieInfo }) => {
       <Card
         style={{
           backgroundImage: `linear-gradient(to right, rgba(255,255,255, 0.7) 0 50%), url(${backgroundUrl})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
         }}
-        className="movie-info w-full"
+        className="movie-info w-full bg-cover bg-no-repeat"
       >
         <div className="flex justify-content-between gap-4 p-5 text-black">
           <img src={imageUrl} alt="poster" />

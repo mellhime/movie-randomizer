@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { useGetMovies } from "@modules";
 
 import { TFilterChangeEvent } from "../../types";
-import { randChoice } from "../helpers";
+import { randChoice, randomPage } from "../helpers";
 import { SearchBlock } from "../SearchBlock";
 
 import "@testing-library/jest-dom";
@@ -14,6 +14,7 @@ jest.mock("@modules", () => ({
 
 jest.mock("../helpers", () => ({
   randChoice: jest.fn(),
+  randomPage: jest.fn(),
 }));
 
 jest.mock("../MovieOptions", () => ({
@@ -64,6 +65,7 @@ describe("SearchBlock component", () => {
 
     mockHandleGetMoviesList.mockResolvedValueOnce(mockMovies);
     (randChoice as jest.Mock).mockReturnValueOnce(mockMovies.results[0]);
+    (randomPage as jest.Mock).mockReturnValueOnce(1);
 
     render(<SearchBlock onMovieChange={mockOnMovieChange} />);
 

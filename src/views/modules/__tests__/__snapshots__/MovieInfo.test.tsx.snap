@@ -3,10 +3,9 @@
 exports[`MovieInfo component should match snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="movie-info w-full p-card p-component"
+    class="movie-info w-full bg-cover bg-no-repeat p-card p-component"
     data-pc-name="card"
     data-pc-section="root"
-    style="background-repeat: no-repeat; background-size: cover;"
   >
     <div
       class="p-card-body"

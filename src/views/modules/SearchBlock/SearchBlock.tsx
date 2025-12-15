@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-import { Divider } from "primereact/divider";
 
 import { useGetMovies } from "@modules";
 import { IMovie } from "@entities";
@@ -61,7 +60,6 @@ const SearchBlock: FC<IProps> = ({ onMovieChange: handleMovieChange }) => {
           </Button>
         </form>
       </Card>
-      <Divider></Divider>
     </>
   );
 };

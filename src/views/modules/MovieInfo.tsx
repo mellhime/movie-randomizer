@@ -45,7 +45,7 @@ const MovieInfo: FC<IProps> = ({ movieInfo }) => {
         }}
         className="movie-info w-full bg-cover bg-no-repeat"
       >
-        <div className="flex justify-content-between gap-4 p-5 text-black">
+        <div className="flex gap-4 p-5 text-black">
           <img src={imageUrl} alt="poster" />
           <div>
             <h3 className="mb-2">{movieTitle}</h3>

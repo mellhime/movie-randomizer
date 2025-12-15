@@ -28,4 +28,4 @@ type TGenresParams = {
   language?: string;
 };
 
-export { TFilterChangeEvent, type TGenresParams, type TMoviesParams };
+export { TFilterChangeEvent, TGenresParams, TMoviesParams };

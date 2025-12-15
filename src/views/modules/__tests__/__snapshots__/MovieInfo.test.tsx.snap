@@ -16,7 +16,7 @@ exports[`MovieInfo component should match snapshot 1`] = `
         data-pc-section="content"
       >
         <div
-          class="flex justify-content-between gap-4 p-5 text-black"
+          class="flex gap-4 p-5 text-black"
         >
           <img
             alt="poster"

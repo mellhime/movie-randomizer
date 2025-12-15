@@ -17,4 +17,4 @@ interface TMoviesResponseDto {
   totalResults: number;
 }
 
-export { type TMoviesRequestDto, TMoviesResponseDto };
+export { TMoviesRequestDto, TMoviesResponseDto };

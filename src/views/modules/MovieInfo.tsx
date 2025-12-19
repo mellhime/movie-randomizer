@@ -1,26 +1,17 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { Card } from "primereact/card";
 import { Knob } from "primereact/knob";
 
-import { useGetGenres } from "@modules";
 import { IGenre, IMovie } from "@entities";
 const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 interface IProps {
   movieInfo: IMovie | null;
+  genresList: IGenre[];
 }
 
-const MovieInfo: FC<IProps> = ({ movieInfo }) => {
-  const [genresList, setGenresList] = useState<IGenre[]>([]);
-  const { handleGetGenresList } = useGetGenres();
-
-  useEffect(() => {
-    handleGetGenresList().then((data) => {
-      setGenresList(data.genres);
-    });
-  }, []);
-
+const MovieInfo: FC<IProps> = ({ movieInfo, genresList }) => {
   if (!movieInfo) {
     return null;
   }

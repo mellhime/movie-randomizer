@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { TMoviesParams, useGetGenres } from "@modules";
+import { TMoviesParams } from "@modules";
 
 import { MovieOptions } from "../MovieOptions";
 
@@ -13,39 +13,37 @@ const baseOptions: TMoviesParams = {
   page: 1,
 };
 
-jest.mock("@modules", () => ({
-  useGetGenres: jest.fn(),
-}));
+const genresList = [
+  { id: 2, name: "Drama" },
+  { id: 1, name: "Action" },
+];
 
 describe("MovieOptions component", () => {
   const mockOnChange = jest.fn();
-  const mockHandleGetGenresList = jest
-    .fn()
-    .mockResolvedValue({ genres: [{ id: 1, name: "Action" }] });
 
   beforeEach(() => {
     jest.clearAllMocks();
-
-    (useGetGenres as jest.Mock).mockReturnValue({
-      handleGetGenresList: mockHandleGetGenresList,
-    });
   });
 
   it("should match snapshot", async () => {
     const { asFragment } = render(
-      <MovieOptions options={baseOptions} onChange={mockOnChange} />,
+      <MovieOptions
+        options={baseOptions}
+        genresList={genresList}
+        onChange={mockOnChange}
+      />,
     );
-
-    await waitFor(() => {
-      expect(mockHandleGetGenresList).toHaveBeenCalled();
-    });
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it("should call onChange after rating field change", () => {
     const { container } = render(
-      <MovieOptions options={baseOptions} onChange={mockOnChange} />,
+      <MovieOptions
+        options={baseOptions}
+        genresList={genresList}
+        onChange={mockOnChange}
+      />,
     );
 
     const stars = container.getElementsByClassName("p-rating-item");
@@ -66,7 +64,13 @@ describe("MovieOptions component", () => {
   });
 
   it("should call onChange after genres field change", async () => {
-    render(<MovieOptions options={baseOptions} onChange={mockOnChange} />);
+    render(
+      <MovieOptions
+        options={baseOptions}
+        genresList={genresList}
+        onChange={mockOnChange}
+      />,
+    );
 
     const select = screen.getByTestId("genres");
     await userEvent.click(select);
@@ -88,7 +92,13 @@ describe("MovieOptions component", () => {
   });
 
   it("should call onChange after release year field change", async () => {
-    render(<MovieOptions options={baseOptions} onChange={mockOnChange} />);
+    render(
+      <MovieOptions
+        options={baseOptions}
+        genresList={genresList}
+        onChange={mockOnChange}
+      />,
+    );
 
     const calendar = screen.getByLabelText("Release year");
     await userEvent.click(calendar);
@@ -106,11 +116,25 @@ describe("MovieOptions component", () => {
     });
   });
 
-  it("should call onChangeRuntime after runtime field change", () => {
-    render(<MovieOptions options={baseOptions} onChange={mockOnChange} />);
+  it("should call onChange after runtime field change", () => {
+    const { container } = render(
+      <MovieOptions
+        options={baseOptions}
+        genresList={genresList}
+        onChange={mockOnChange}
+      />,
+    );
 
-    // todo somehow test it with userEvent
-    mockOnChange({ value: [90, 160] });
+    const slider = container.querySelector(".p-slider");
+    expect(slider).toBeTruthy();
+
+    slider!.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: [90, 160],
+        },
+      }),
+    );
 
     waitFor(() => {
       expect(mockOnChange).toHaveBeenCalledWith(

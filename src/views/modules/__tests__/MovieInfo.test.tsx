@@ -1,9 +1,7 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import { MovieInfo } from "@modules";
 import { IMovie } from "@entities";
-
-import { useGetGenres } from "../hooks";
 
 import "@testing-library/jest-dom";
 
@@ -19,42 +17,22 @@ const movieData: IMovie = {
   voteAverage: 8.8,
 };
 
-jest.mock("../hooks", () => ({
-  useGetGenres: jest.fn(),
-}));
+const genresList = [
+  { id: 2, name: "Drama" },
+  { id: 3, name: "Romance" },
+];
 
 describe("MovieInfo component", () => {
-  const mockHandleGetGenresList = jest.fn().mockResolvedValue({
-    genres: [
-      { id: 2, name: "Drama" },
-      { id: 3, name: "Romance" },
-    ],
-  });
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-
-    (useGetGenres as jest.Mock).mockReturnValue({
-      handleGetGenresList: mockHandleGetGenresList,
-    });
-  });
-
   it("should match snapshot", async () => {
-    const { asFragment } = render(<MovieInfo movieInfo={movieData} />);
-
-    await waitFor(() => {
-      expect(mockHandleGetGenresList).toHaveBeenCalled();
-    });
+    const { asFragment } = render(
+      <MovieInfo movieInfo={movieData} genresList={genresList} />,
+    );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it("should display movie info", async () => {
-    render(<MovieInfo movieInfo={movieData} />);
-
-    await waitFor(() => {
-      expect(mockHandleGetGenresList).toHaveBeenCalled();
-    });
+    render(<MovieInfo movieInfo={movieData} genresList={genresList} />);
 
     const title = screen.getByText("Titanic (1998)");
     expect(title).toBeInTheDocument();

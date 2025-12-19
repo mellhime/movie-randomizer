@@ -8,6 +8,11 @@ import { SearchBlock } from "../SearchBlock";
 
 import "@testing-library/jest-dom";
 
+const genresList = [
+  { id: 2, name: "Drama" },
+  { id: 3, name: "Romance" },
+];
+
 jest.mock("@modules", () => ({
   useGetMovies: jest.fn(),
 }));
@@ -50,7 +55,7 @@ describe("SearchBlock component", () => {
 
   it("should match snapshot", () => {
     const { asFragment } = render(
-      <SearchBlock onMovieChange={mockOnMovieChange} />,
+      <SearchBlock onMovieChange={mockOnMovieChange} genresList={genresList} />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -67,7 +72,9 @@ describe("SearchBlock component", () => {
     (randChoice as jest.Mock).mockReturnValueOnce(mockMovies.results[0]);
     (randomPage as jest.Mock).mockReturnValueOnce(1);
 
-    render(<SearchBlock onMovieChange={mockOnMovieChange} />);
+    render(
+      <SearchBlock onMovieChange={mockOnMovieChange} genresList={genresList} />,
+    );
 
     fireEvent.click(screen.getByTestId("mock-rating"));
 

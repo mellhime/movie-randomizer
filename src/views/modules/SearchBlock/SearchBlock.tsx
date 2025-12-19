@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 
 import { useGetMovies } from "@modules";
-import { IMovie } from "@entities";
+import { IGenre, IMovie } from "@entities";
 
 import { TFilterChangeEvent, TMoviesParams } from "./../types";
 import { randChoice, randomPage } from "./helpers";
@@ -22,9 +22,13 @@ const PAGES_LIMIT = 500;
 
 interface IProps {
   onMovieChange: (movie: IMovie) => void;
+  genresList: IGenre[];
 }
 
-const SearchBlock: FC<IProps> = ({ onMovieChange: handleMovieChange }) => {
+const SearchBlock: FC<IProps> = ({
+  genresList,
+  onMovieChange: handleMovieChange,
+}) => {
   const [movieOptions, setMovieOptions] =
     useState<TMoviesParams>(INITIAL_STATE);
   const { handleGetMoviesList } = useGetMovies();
@@ -50,7 +54,11 @@ const SearchBlock: FC<IProps> = ({ onMovieChange: handleMovieChange }) => {
       <h2>Search options</h2>
       <Card className="w-6">
         <form className="flex align-items-center flex-column">
-          <MovieOptions options={movieOptions} onChange={handleChange} />
+          <MovieOptions
+            options={movieOptions}
+            onChange={handleChange}
+            genresList={genresList}
+          />
           <Button
             className="p-button-secondary m-5"
             type="button"

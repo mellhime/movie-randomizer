@@ -1,11 +1,10 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { Calendar } from "primereact/calendar";
 import { MultiSelect } from "primereact/multiselect";
 import { Rating } from "primereact/rating";
 import { Slider } from "primereact/slider";
 
-import { useGetGenres } from "@modules";
 import { mappedOptions } from "@lib";
 import { IGenre } from "@entities";
 
@@ -14,19 +13,15 @@ import { TFilterChangeEvent, TMoviesParams } from "./../types";
 interface IProps {
   options: TMoviesParams;
   onChange: (e: TFilterChangeEvent) => void;
+  genresList: IGenre[];
 }
 
-const MovieOptions: FC<IProps> = ({ options, onChange: handleChange }) => {
-  const [genresList, setGenresList] = useState<IGenre[]>([]);
-  const { handleGetGenresList } = useGetGenres();
-
+const MovieOptions: FC<IProps> = ({
+  options,
+  genresList,
+  onChange: handleChange,
+}) => {
   const runtimeBorders = `${options.runtime[0]} - ${options.runtime[1]}`;
-
-  useEffect(() => {
-    handleGetGenresList().then((data) => {
-      setGenresList(data.genres);
-    });
-  }, []);
 
   return (
     <>

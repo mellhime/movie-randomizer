@@ -7,6 +7,7 @@ type TMoviesRequestDto = {
   "voteAverage.gte"?: number;
   "releaseDate.gte"?: TReleaseDate;
   "releaseDate.lte"?: TReleaseDate;
+  page: number;
 };
 
 interface TMoviesResponseDto {

@@ -61,6 +61,7 @@
     "primereact": "^10.9.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-toastify": "^11.0.5",
     "ts-case-convert": "^2.1.0"
   }
 }

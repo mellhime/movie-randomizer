@@ -1,5 +1,7 @@
 import { objectToCamel } from "ts-case-convert";
 
+import { httpError, IServerError } from "@lib";
+
 type TQueryParams = Record<string, string | number | undefined>;
 type TUrlSearchParamsArgument = ConstructorParameters<
   typeof URLSearchParams
@@ -48,14 +50,19 @@ const get = (path: string, options: IHttpOptions = {}) => {
     },
   })
     .then((response) => {
-      return response.json().then((body) => ({
-        data: objectToCamel(body),
-        headers: response.headers,
-      }));
+      if (response.ok) {
+        return response.json().then((body) => ({
+          data: objectToCamel(body),
+          headers: response.headers,
+        }));
+      }
+
+      return Promise.reject(response);
     })
-    .catch((error) => {
-      // todo ErrorHandler
-      throw error;
+    .catch((response) => {
+      return response.json().then((error: IServerError) => {
+        httpError(objectToCamel(error));
+      });
     });
 };
 
@@ -71,9 +78,10 @@ const post = (path: string, options: IHttpOptions = {}) => {
     .then((response) => {
       return response.json();
     })
-    .catch((error) => {
-      // todo ErrorHandler
-      throw error;
+    .catch((response) => {
+      return response.json().then((error: IServerError) => {
+        httpError(objectToCamel(error));
+      });
     });
 };
 

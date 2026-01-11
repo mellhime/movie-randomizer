@@ -2,46 +2,50 @@ import { FC, useState } from "react";
 
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-import { SliderChangeEvent } from "primereact/slider";
 
-import { IMovie } from "@entities";
+import { useGetMovies } from "@modules";
+import { IGenre, IMovie } from "@entities";
 
-import { randChoice } from "./helpers";
-import { useGetMovies } from "./hooks";
+import { TFilterChangeEvent, TMoviesParams } from "./../types";
+import { randChoice, randomPage } from "./helpers";
 import { MovieOptions } from "./MovieOptions";
-import { TFilterChangeEvent, TMoviesParams } from "./types";
 
 const INITIAL_STATE: TMoviesParams = {
   genres: [],
   releaseYears: [],
   runtime: [60, 180],
   score: 0,
+  page: 1,
 };
 
-const SearchBlock: FC = () => {
-  const [, setMovieInfo] = useState<IMovie | null>(null);
+const PAGES_LIMIT = 500;
+
+interface IProps {
+  onMovieChange: (movie: IMovie) => void;
+  genresList: IGenre[];
+}
+
+const SearchBlock: FC<IProps> = ({
+  genresList,
+  onMovieChange: handleMovieChange,
+}) => {
   const [movieOptions, setMovieOptions] =
     useState<TMoviesParams>(INITIAL_STATE);
   const { handleGetMoviesList } = useGetMovies();
 
-  const handleChange = (e: TFilterChangeEvent) => {
-    setMovieOptions({ ...movieOptions, [e.target.name]: e.value });
-  };
+  const handleChange = (event: TFilterChangeEvent) => {
+    const name = "target" in event ? event.target.name : "runtime";
 
-  // todo move to common handler
-  const handleChangeRuntime = (event: SliderChangeEvent) => {
-    const { value } = event;
-    const runtime: [number, number] = Array.isArray(value)
-      ? (value as [number, number])
-      : [value as number, value as number];
-
-    setMovieOptions({ ...movieOptions, runtime });
+    setMovieOptions({ ...movieOptions, [name]: event.value });
   };
 
   const handleSubmit = () => {
-    handleGetMoviesList(movieOptions).then((data) => {
+    handleGetMoviesList({
+      ...movieOptions,
+      page: randomPage(PAGES_LIMIT),
+    }).then((data) => {
       const randomMovie: IMovie = randChoice(data.results);
-      setMovieInfo(randomMovie);
+      handleMovieChange(randomMovie);
     });
   };
 
@@ -53,7 +57,7 @@ const SearchBlock: FC = () => {
           <MovieOptions
             options={movieOptions}
             onChange={handleChange}
-            onChangeRuntime={handleChangeRuntime}
+            genresList={genresList}
           />
           <Button
             className="p-button-secondary m-5"

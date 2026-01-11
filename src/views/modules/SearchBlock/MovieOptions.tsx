@@ -1,37 +1,27 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { Calendar } from "primereact/calendar";
 import { MultiSelect } from "primereact/multiselect";
 import { Rating } from "primereact/rating";
-import { Slider, SliderChangeEvent } from "primereact/slider";
+import { Slider } from "primereact/slider";
 
 import { mappedOptions } from "@lib";
 import { IGenre } from "@entities";
 
-import { useGetGenres } from "./hooks";
-import { TFilterChangeEvent, TMoviesParams } from "./types";
+import { TFilterChangeEvent, TMoviesParams } from "./../types";
 
 interface IProps {
   options: TMoviesParams;
   onChange: (e: TFilterChangeEvent) => void;
-  onChangeRuntime: (e: SliderChangeEvent) => void;
+  genresList: IGenre[];
 }
 
 const MovieOptions: FC<IProps> = ({
   options,
+  genresList,
   onChange: handleChange,
-  onChangeRuntime: handleChangeRuntime,
 }) => {
-  const [genresList, setGenresList] = useState<IGenre[]>([]);
-  const { handleGetGenresList } = useGetGenres();
-
   const runtimeBorders = `${options.runtime[0]} - ${options.runtime[1]}`;
-
-  useEffect(() => {
-    handleGetGenresList().then((data) => {
-      setGenresList(data.genres);
-    });
-  }, []);
 
   return (
     <>
@@ -80,7 +70,7 @@ const MovieOptions: FC<IProps> = ({
               range
               min={0}
               max={500}
-              onChange={handleChangeRuntime}
+              onChange={handleChange}
             />
             {runtimeBorders}
           </label>

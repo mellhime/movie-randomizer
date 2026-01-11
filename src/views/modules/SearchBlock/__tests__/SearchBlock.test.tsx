@@ -1,19 +1,25 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
-import { SearchBlock } from "@modules";
+import { useGetMovies } from "@modules";
 
-import { randChoice } from "../helpers";
-import { useGetMovies } from "../hooks";
-import { TFilterChangeEvent } from "../types";
+import { TFilterChangeEvent } from "../../types";
+import { randChoice, randomPage } from "../helpers";
+import { SearchBlock } from "../SearchBlock";
 
 import "@testing-library/jest-dom";
 
-jest.mock("../hooks", () => ({
+const genresList = [
+  { id: 2, name: "Drama" },
+  { id: 3, name: "Romance" },
+];
+
+jest.mock("@modules", () => ({
   useGetMovies: jest.fn(),
 }));
 
 jest.mock("../helpers", () => ({
   randChoice: jest.fn(),
+  randomPage: jest.fn(),
 }));
 
 jest.mock("../MovieOptions", () => ({
@@ -37,6 +43,7 @@ jest.mock("../MovieOptions", () => ({
 }));
 
 describe("SearchBlock component", () => {
+  const mockOnMovieChange = jest.fn();
   const mockHandleGetMoviesList = jest.fn();
   beforeEach(() => {
     jest.clearAllMocks();
@@ -47,7 +54,9 @@ describe("SearchBlock component", () => {
   });
 
   it("should match snapshot", () => {
-    const { asFragment } = render(<SearchBlock />);
+    const { asFragment } = render(
+      <SearchBlock onMovieChange={mockOnMovieChange} genresList={genresList} />,
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -61,8 +70,11 @@ describe("SearchBlock component", () => {
 
     mockHandleGetMoviesList.mockResolvedValueOnce(mockMovies);
     (randChoice as jest.Mock).mockReturnValueOnce(mockMovies.results[0]);
+    (randomPage as jest.Mock).mockReturnValueOnce(1);
 
-    render(<SearchBlock />);
+    render(
+      <SearchBlock onMovieChange={mockOnMovieChange} genresList={genresList} />,
+    );
 
     fireEvent.click(screen.getByTestId("mock-rating"));
 

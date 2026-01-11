@@ -1,2 +1,1 @@
-export * from "./SearchBlock";
-export { TGenresParams, TMoviesParams } from "./types";
+export { SearchBlock } from "./SearchBlock";

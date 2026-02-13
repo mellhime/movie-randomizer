@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import { MovieInfo } from "@modules";
+import { signin, signout, signup } from "@lib";
 import { IMovie } from "@entities";
 
 import "@testing-library/jest-dom";
@@ -22,7 +23,21 @@ const genresList = [
   { id: 3, name: "Romance" },
 ];
 
+jest.mock("@lib", () => ({
+  signin: jest.fn(),
+  signup: jest.fn(),
+  signout: jest.fn(),
+}));
+
 describe("MovieInfo component", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    (signout as jest.Mock).mockReturnValueOnce({});
+    (signin as jest.Mock).mockReturnValueOnce({ user: { id: 1 } });
+    (signup as jest.Mock).mockReturnValueOnce({ user: { id: 1 } });
+  });
+
   it("should match snapshot", async () => {
     const { asFragment } = render(
       <MovieInfo movieInfo={movieData} genresList={genresList} />,

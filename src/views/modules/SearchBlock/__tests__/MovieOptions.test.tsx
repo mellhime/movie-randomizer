@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { TMoviesParams } from "@modules";
+import { signin, signout, signup } from "@lib";
 
 import { MovieOptions } from "../MovieOptions";
 
@@ -18,11 +19,21 @@ const genresList = [
   { id: 1, name: "Action" },
 ];
 
+jest.mock("@lib", () => ({
+  signin: jest.fn(),
+  signup: jest.fn(),
+  signout: jest.fn(),
+}));
+
 describe("MovieOptions component", () => {
   const mockOnChange = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
+
+    (signout as jest.Mock).mockReturnValueOnce({});
+    (signin as jest.Mock).mockReturnValueOnce({ user: { id: 1 } });
+    (signup as jest.Mock).mockReturnValueOnce({ user: { id: 1 } });
   });
 
   it("should match snapshot", async () => {

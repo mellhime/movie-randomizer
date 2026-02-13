@@ -3,6 +3,13 @@ const app = {
   description:
     "Welcome to Random Movie Generator! Dive into a world of movies with our tool that simplifies your search. Choose from genres, ratings, release dates, and runtimes to find your perfect match from a constantly updated movie collection. Discover your next favorite film with just a click!",
   unknownError: "Unknown error",
+  signIn: "Sign In",
+  signUp: "Sign Up",
+  signOut: "Sign Out",
+  email: "Email",
+  password: "Password",
+  submit: "Submit",
+  close: "Close",
 };
 
 export { app };

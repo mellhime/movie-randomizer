@@ -1,23 +1,55 @@
 import { FC, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
+import { UserInfo } from "@firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
 
 import { AppDescription, Header, LowerPanel, MiddlePanel } from "@layouts";
 import {
   Logo,
+  ModalDialog,
   MovieInfo,
   SearchBlock,
   useGetGenres,
   WatchListButton,
 } from "@modules";
-import { texts } from "@lib";
+import { auth, signout, texts } from "@lib";
 import { IGenre, IMovie } from "@entities";
 
 const App: FC = () => {
   const [movieInfo, setMovieInfo] = useState<IMovie | null>(null);
   const [genresList, setGenresList] = useState<IGenre[]>([]);
+  const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
+  const [isSignInFormOpen, setIsSignInFormOpen] = useState<boolean>(false);
+
   const { handleGetGenresList } = useGetGenres();
+
+  const openSignInModal = () => {
+    setIsSignInFormOpen(true);
+  };
+
+  const rightHeaderPart = () => {
+    return (
+      <div className="flex gap-2">
+        {currentUser && <WatchListButton />}
+        <Button
+          className="p-button-secondary mb-2 md:mb-0"
+          label={currentUser ? texts.app.signOut : texts.app.signIn}
+          onClick={currentUser ? signout : openSignInModal}
+        />
+      </div>
+    );
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setCurrentUser(user);
+    } else {
+      setCurrentUser(null);
+    }
+  });
 
   useEffect(() => {
     handleGetGenresList().then((data) => {
@@ -27,7 +59,7 @@ const App: FC = () => {
 
   return (
     <main>
-      <Header leftPart={<Logo />} rightPart={<WatchListButton />} />
+      <Header leftPart={<Logo />} rightPart={rightHeaderPart()} />
       <AppDescription
         title={texts.app.title}
         description={texts.app.description}
@@ -42,6 +74,9 @@ const App: FC = () => {
       <LowerPanel
         content={<MovieInfo movieInfo={movieInfo} genresList={genresList} />}
       />
+      {isSignInFormOpen && (
+        <ModalDialog onClose={() => setIsSignInFormOpen(false)} />
+      )}
       <ToastContainer />
     </main>
   );

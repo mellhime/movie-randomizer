@@ -21,11 +21,8 @@ const ModalDialog: FC<IProps> = ({ onClose: handleClose }) => {
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
-    if (kind === "signin") {
-      signin(form.email, form.password).then(() => handleClose());
-    } else {
-      signup(form.email, form.password).then(() => handleClose());
-    }
+    const action = kind === "signin" ? signin : signup;
+    action(form.email, form.password).then(() => handleClose());
   };
 
   const header = kind === "signin" ? texts.app.signIn : texts.app.signUp;
@@ -58,12 +55,12 @@ const ModalDialog: FC<IProps> = ({ onClose: handleClose }) => {
           <Button
             className="p-button-secondary submit-button"
             onClick={handleSubmit}
-            label={texts.app.submit}
+            label={texts.buttons.submit}
           />
           <Button
             className="p-button-secondary close-button"
             onClick={handleClose}
-            label={texts.app.close}
+            label={texts.buttons.close}
           />
         </div>
         <div>

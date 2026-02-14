@@ -10,7 +10,7 @@ interface IProps {
   onClose: () => void;
 }
 
-const ModalDialog: FC<IProps> = ({ onClose: handleClose }) => {
+const SignFormDialog: FC<IProps> = ({ onClose: handleClose }) => {
   const [kind, setKind] = useState("signin");
   const [form, setForm] = useState({ email: "", password: "" });
 
@@ -77,4 +77,4 @@ const ModalDialog: FC<IProps> = ({ onClose: handleClose }) => {
   );
 };
 
-export { ModalDialog };
+export { SignFormDialog };

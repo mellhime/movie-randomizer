@@ -9,9 +9,9 @@ import { Divider } from "primereact/divider";
 import { AppDescription, Header, LowerPanel, MiddlePanel } from "@layouts";
 import {
   Logo,
-  ModalDialog,
   MovieInfo,
   SearchBlock,
+  SignFormDialog,
   useGetGenres,
   WatchListButton,
 } from "@modules";
@@ -26,10 +26,6 @@ const App: FC = () => {
 
   const { handleGetGenresList } = useGetGenres();
 
-  const openSignInModal = () => {
-    setIsSignInFormOpen(true);
-  };
-
   const rightHeaderPart = () => {
     return (
       <div className="flex gap-2">
@@ -37,18 +33,14 @@ const App: FC = () => {
         <Button
           className="p-button-secondary mb-2 md:mb-0"
           label={currentUser ? texts.app.signOut : texts.app.signIn}
-          onClick={currentUser ? signout : openSignInModal}
+          onClick={currentUser ? signout : () => setIsSignInFormOpen(true)}
         />
       </div>
     );
   };
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setCurrentUser(user);
-    } else {
-      setCurrentUser(null);
-    }
+    setCurrentUser(user);
   });
 
   useEffect(() => {
@@ -75,7 +67,7 @@ const App: FC = () => {
         content={<MovieInfo movieInfo={movieInfo} genresList={genresList} />}
       />
       {isSignInFormOpen && (
-        <ModalDialog onClose={() => setIsSignInFormOpen(false)} />
+        <SignFormDialog onClose={() => setIsSignInFormOpen(false)} />
       )}
       <ToastContainer />
     </main>

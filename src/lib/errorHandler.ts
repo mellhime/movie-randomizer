@@ -12,7 +12,7 @@ const httpError = (error: IServerError) => {
   if (error.statusMessage) {
     toast(error.statusMessage);
   } else {
-    toast(app.unknownError);
+    toast(app.errors.unknownError);
     throw error;
   }
 };

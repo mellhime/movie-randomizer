@@ -1,21 +1,17 @@
-import { FC, useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { FC, useEffect, useRef, useState } from "react";
 
 import { UserInfo } from "@firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
+import { Toast } from "primereact/toast";
+import { Toast as ToastType } from "primereact/toast";
 
 import { AppDescription, Header, LowerPanel, MiddlePanel } from "@layouts";
-import {
-  Logo,
-  MovieInfo,
-  SearchBlock,
-  SignFormDialog,
-  useGetGenres,
-  WatchListButton,
-} from "@modules";
-import { auth, signout, texts } from "@lib";
+import { RightHeaderPart } from "@layouts";
+import { Logo, MovieInfo, SearchBlock, SignForm, useGetGenres } from "@modules";
+import { auth, texts } from "@lib";
+import { setToastRef } from "@lib";
 import { IGenre, IMovie } from "@entities";
 
 const App: FC = () => {
@@ -26,19 +22,13 @@ const App: FC = () => {
 
   const { handleGetGenresList } = useGetGenres();
 
-  const rightHeaderPart = () => {
-    return (
-      <div className="flex gap-2">
-        {currentUser && <WatchListButton />}
-        <Button
-          className="p-button-secondary mb-2 md:mb-0"
-          label={currentUser ? texts.app.signOut : texts.app.signIn}
-          onClick={currentUser ? signout : () => setIsSignInFormOpen(true)}
-        />
-      </div>
-    );
-  };
+  const toastRef = useRef<ToastType>(null);
 
+  useEffect(() => {
+    setToastRef(toastRef.current);
+  }, []);
+
+  // todo Написано в теле ф-ции -> создает подписку каждый рендер компонента -> утечка памяти
   onAuthStateChanged(auth, (user) => {
     setCurrentUser(user);
   });
@@ -51,7 +41,15 @@ const App: FC = () => {
 
   return (
     <main>
-      <Header leftPart={<Logo />} rightPart={rightHeaderPart()} />
+      <Header
+        leftPart={<Logo />}
+        rightPart={
+          <RightHeaderPart
+            currentUser={currentUser}
+            onClick={() => setIsSignInFormOpen(true)}
+          />
+        }
+      />
       <AppDescription
         title={texts.app.title}
         description={texts.app.description}
@@ -66,10 +64,18 @@ const App: FC = () => {
       <LowerPanel
         content={<MovieInfo movieInfo={movieInfo} genresList={genresList} />}
       />
-      {isSignInFormOpen && (
-        <SignFormDialog onClose={() => setIsSignInFormOpen(false)} />
-      )}
-      <ToastContainer />
+      <Dialog
+        header={texts.app.signIn}
+        visible={isSignInFormOpen}
+        className="w-3"
+        onHide={() => {
+          if (!isSignInFormOpen) return;
+          setIsSignInFormOpen(false);
+        }}
+      >
+        <SignForm onClose={() => setIsSignInFormOpen(false)} />
+      </Dialog>
+      <Toast ref={toastRef} />
     </main>
   );
 };

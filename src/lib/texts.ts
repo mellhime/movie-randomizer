@@ -9,8 +9,10 @@ const app = {
   password: "Password",
 };
 
-const errors = {
+const notifications = {
+  error: "Error",
   unknownError: "Unknown error",
+  success: "Success",
 };
 
 const buttons = {
@@ -18,4 +20,4 @@ const buttons = {
   close: "Close",
 };
 
-export { app, buttons, errors };
+export { app, buttons, notifications };

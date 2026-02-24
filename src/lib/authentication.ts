@@ -1,26 +1,24 @@
-import { toast } from "react-toastify";
-
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
+import firebase from "firebase/compat/app";
 
+import { toast } from "@lib";
 import { auth } from "@lib";
+import AuthError = firebase.auth.AuthError;
 
-interface IFirebaseError {
-  code: number;
-  message: string;
-}
-
-const handleAuthError = (error: IFirebaseError) => {
-  toast(error.message);
+const handleAuthError = (error: AuthError) => {
+  console.log(error);
+  toast.error(error.message);
+  throw error;
 };
 
 const signup = (email: string, password: string) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => userCredential)
-    .catch((error: IFirebaseError) => {
+    .catch((error: AuthError) => {
       handleAuthError(error);
     });
 };
@@ -28,13 +26,13 @@ const signup = (email: string, password: string) => {
 const signin = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => userCredential)
-    .catch((error: IFirebaseError) => {
+    .catch((error: AuthError) => {
       handleAuthError(error);
     });
 };
 
 const signout = () => {
-  return signOut(auth).catch((error: IFirebaseError) => {
+  return signOut(auth).catch((error: AuthError) => {
     handleAuthError(error);
   });
 };

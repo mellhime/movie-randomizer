@@ -1,6 +1,6 @@
-import { toast } from "react-toastify";
+import { toast } from "@lib";
 
-import { app } from "./texts";
+import { notifications } from "./texts";
 
 interface IServerError {
   statusCode: number;
@@ -9,12 +9,10 @@ interface IServerError {
 }
 
 const httpError = (error: IServerError) => {
-  if (error.statusMessage) {
-    toast(error.statusMessage);
-  } else {
-    toast(app.errors.unknownError);
-    throw error;
-  }
+  console.log(error);
+  toast.error(error.statusMessage ?? notifications.unknownError);
+
+  throw error;
 };
 
 export { httpError, IServerError };

@@ -28,7 +28,6 @@ const App: FC = () => {
     setToastRef(toastRef.current);
   }, []);
 
-  // todo Написано в теле ф-ции -> создает подписку каждый рендер компонента -> утечка памяти
   onAuthStateChanged(auth, (user) => {
     setCurrentUser(user);
   });

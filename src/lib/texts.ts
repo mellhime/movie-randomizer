@@ -17,7 +17,6 @@ const notifications = {
 
 const buttons = {
   submit: "Submit",
-  close: "Close",
 };
 
 export { app, buttons, notifications };

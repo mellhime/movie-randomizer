@@ -9,7 +9,6 @@ interface IServerError {
 }
 
 const httpError = (error: IServerError) => {
-  console.log(error);
   toast.error(error.statusMessage ?? notifications.unknownError);
 
   throw error;

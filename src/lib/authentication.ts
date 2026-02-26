@@ -10,7 +10,6 @@ import { auth } from "@lib";
 import AuthError = firebase.auth.AuthError;
 
 const handleAuthError = (error: AuthError) => {
-  console.log(error);
   toast.error(error.message);
   throw error;
 };

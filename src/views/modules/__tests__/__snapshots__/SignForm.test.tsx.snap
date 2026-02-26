@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignForm component should match snapshot 1`] = `
+<DocumentFragment>
+  <form
+    class="flex flex-column align-items-center justify-content-center gap-2"
+  >
+    <label
+      class="flex flex-column gap-2"
+    >
+      Email
+      <input
+        class="p-inputtext p-component"
+        data-pc-name="inputtext"
+        data-pc-section="root"
+        data-testid="email"
+        name="email"
+        required=""
+        value=""
+      />
+    </label>
+    <label
+      class="flex flex-column gap-2"
+    >
+      Password
+      <div
+        class="p-password p-component p-inputwrapper"
+        data-pc-name="password"
+        data-pc-section="root"
+      >
+        <input
+          class="p-password-input p-inputtext p-component"
+          data-pc-name="inputtext"
+          data-pc-section="root"
+          data-testid="password"
+          required=""
+          tabindex="0"
+          type="password"
+          value=""
+        />
+      </div>
+    </label>
+    <div
+      class="buttons flex m-4 gap-2"
+    >
+      <button
+        aria-label="Submit"
+        class="p-button-secondary submit-button p-button p-component"
+        data-pc-name="button"
+        data-pc-section="root"
+        type="submit"
+      >
+        <span
+          class="p-button-label p-c"
+          data-pc-section="label"
+        >
+          Submit
+        </span>
+      </button>
+    </div>
+    <div>
+      <button
+        aria-label="Sign Up"
+        class="p-button-secondary p-button p-component"
+        data-pc-name="button"
+        data-pc-section="root"
+      >
+        <span
+          class="p-button-label p-c"
+          data-pc-section="label"
+        >
+          Sign Up
+        </span>
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;

@@ -5,13 +5,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { Dialog } from "primereact/dialog";
 import { Divider } from "primereact/divider";
 import { Toast } from "primereact/toast";
-import { Toast as ToastType } from "primereact/toast";
 
-import { AppDescription, Header, LowerPanel, MiddlePanel } from "@layouts";
-import { RightHeaderPart } from "@layouts";
+import {
+  AppDescription,
+  Header,
+  LowerPanel,
+  MiddlePanel,
+  RightHeaderPart,
+} from "@layouts";
 import { Logo, MovieInfo, SearchBlock, SignForm, useGetGenres } from "@modules";
-import { auth, texts } from "@lib";
-import { setToastRef } from "@lib";
+import { auth, setToastRef, texts } from "@lib";
 import { IGenre, IMovie } from "@entities";
 
 const App: FC = () => {
@@ -22,15 +25,21 @@ const App: FC = () => {
 
   const { handleGetGenresList } = useGetGenres();
 
-  const toastRef = useRef<ToastType>(null);
+  const toastRef = useRef<Toast>(null);
 
   useEffect(() => {
     setToastRef(toastRef.current);
   }, []);
 
-  onAuthStateChanged(auth, (user) => {
-    setCurrentUser(user);
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     handleGetGenresList().then((data) => {
@@ -53,13 +62,13 @@ const App: FC = () => {
         title={texts.app.title}
         description={texts.app.description}
       />
-      <Divider></Divider>
+      <Divider />
       <MiddlePanel
         content={
           <SearchBlock onMovieChange={setMovieInfo} genresList={genresList} />
         }
       />
-      <Divider></Divider>
+      <Divider />
       <LowerPanel
         content={<MovieInfo movieInfo={movieInfo} genresList={genresList} />}
       />
@@ -68,7 +77,6 @@ const App: FC = () => {
         visible={isSignInFormOpen}
         className="w-3"
         onHide={() => {
-          if (!isSignInFormOpen) return;
           setIsSignInFormOpen(false);
         }}
       >

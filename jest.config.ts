@@ -16,7 +16,12 @@ const jestConfig: Config = {
   testEnvironment: "@happy-dom/jest-environment", // note: https://github.com/jsdom/jsdom/issues/2177
   roots: ["<rootDir>"],
   modulePaths: [compilerOptions.baseUrl],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+  moduleNameMapper: {
+    ...pathsToModuleNameMapper(compilerOptions.paths),
+    "^firebase/app$": "<rootDir>/src/test/mocks/firebase-app.ts",
+    "^firebase/auth$": "<rootDir>/src/test/mocks/firebase-auth.ts",
+    "^firebase/compat/app$": "<rootDir>/src/test/mocks/firebase-compat-app.ts",
+  },
   transform: {
     ...defaultPreset.transform,
     "^.+\\.(ts|tsx)$": "ts-jest",

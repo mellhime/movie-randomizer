@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { TMoviesParams } from "@modules";
@@ -17,6 +17,17 @@ const genresList = [
   { id: 2, name: "Drama" },
   { id: 1, name: "Action" },
 ];
+
+jest.mock("@lib", () => {
+  const actual = jest.requireActual("@lib");
+
+  return {
+    ...actual,
+    signin: jest.fn(),
+    signup: jest.fn(),
+    signout: jest.fn(),
+  };
+});
 
 describe("MovieOptions component", () => {
   const mockOnChange = jest.fn();
@@ -37,7 +48,7 @@ describe("MovieOptions component", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it("should call onChange after rating field change", () => {
+  it("should call onChange after rating field change", async () => {
     const { container } = render(
       <MovieOptions
         options={baseOptions}
@@ -48,9 +59,9 @@ describe("MovieOptions component", () => {
 
     const stars = container.getElementsByClassName("p-rating-item");
     expect(stars.length).toBe(11); // because a clear element also has this class
-    userEvent.click(stars[4]);
+    await userEvent.click(stars[4]);
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(mockOnChange).toHaveBeenCalledTimes(1);
       expect(mockOnChange).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -116,7 +127,7 @@ describe("MovieOptions component", () => {
     });
   });
 
-  it("should call onChange after runtime field change", () => {
+  it("should call onChange after runtime field change", async () => {
     const { container } = render(
       <MovieOptions
         options={baseOptions}
@@ -128,18 +139,14 @@ describe("MovieOptions component", () => {
     const slider = container.querySelector(".p-slider");
     expect(slider).toBeTruthy();
 
-    slider!.dispatchEvent(
-      new CustomEvent("change", {
-        detail: {
-          value: [90, 160],
-        },
-      }),
-    );
+    const handles = container.querySelectorAll(".p-slider-handle");
+    expect(handles.length).toBeGreaterThan(0);
+    fireEvent.keyDown(handles[0], { key: "ArrowRight" });
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(mockOnChange).toHaveBeenCalledWith(
         expect.objectContaining({
-          value: [90, 160],
+          value: [61, 180],
         }),
       );
     });

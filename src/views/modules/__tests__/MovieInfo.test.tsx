@@ -22,7 +22,22 @@ const genresList = [
   { id: 3, name: "Romance" },
 ];
 
+jest.mock("@lib", () => {
+  const actual = jest.requireActual("@lib");
+
+  return {
+    ...actual,
+    signin: jest.fn(),
+    signup: jest.fn(),
+    signout: jest.fn(),
+  };
+});
+
 describe("MovieInfo component", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should match snapshot", async () => {
     const { asFragment } = render(
       <MovieInfo movieInfo={movieData} genresList={genresList} />,

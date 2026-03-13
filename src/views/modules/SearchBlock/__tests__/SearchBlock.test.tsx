@@ -60,7 +60,7 @@ describe("SearchBlock component", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it("should choose random movie", () => {
+  it("should choose random movie", async () => {
     const mockMovies = {
       results: [
         { id: 1, title: "Movie 1" },
@@ -81,7 +81,7 @@ describe("SearchBlock component", () => {
     const button = screen.getByRole("button", { name: /Get a random movie/i });
     fireEvent.click(button);
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(mockHandleGetMoviesList).toHaveBeenCalledTimes(1);
       expect(mockHandleGetMoviesList).toHaveBeenCalledWith(
         expect.objectContaining({ score: 4 }),

@@ -5,7 +5,6 @@ import { MultiSelect } from "primereact/multiselect";
 import { Rating } from "primereact/rating";
 import { Slider } from "primereact/slider";
 
-import { mappedOptions } from "@lib";
 import { IGenre } from "@entities";
 
 import { TFilterChangeEvent, TMoviesParams } from "./../types";
@@ -31,7 +30,9 @@ const MovieOptions: FC<IProps> = ({
             Genres
             <MultiSelect
               name="genres"
-              options={mappedOptions(genresList)}
+              options={genresList}
+              optionLabel="name"
+              optionValue="id"
               value={options.genres}
               onChange={handleChange}
               data-testid="genres"

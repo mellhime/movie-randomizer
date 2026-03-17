@@ -1,2 +1,2 @@
 export { IGenre } from "./Genres";
-export { IMovie } from "./Movies";
+export { IMovie, IWatchListMovie } from "./Movies";

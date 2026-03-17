@@ -20,6 +20,7 @@ const jestConfig: Config = {
     ...pathsToModuleNameMapper(compilerOptions.paths),
     "^firebase/app$": "<rootDir>/src/test/mocks/firebase-app.ts",
     "^firebase/auth$": "<rootDir>/src/test/mocks/firebase-auth.ts",
+    "^firebase/firestore$": "<rootDir>/src/test/mocks/firebase-firestore.ts",
     "^firebase/compat/app$": "<rootDir>/src/test/mocks/firebase-compat-app.ts",
   },
   transform: {

@@ -52,19 +52,19 @@ const WatchList: FC<IProps> = ({ currentUser }) => {
       {watchList.map((movie) => (
         <div
           key={movie.movieId}
-          className="flex w-30rem h-12rem gap-4 align-items-start p-3 border-round surface-100 mb-3 mx-auto"
+          className="flex w-30rem h-12rem gap-4 align-items-start p-3 border-round surface-100 mb-3"
         >
           <img
             src={IMAGE_URL + movie.posterPath}
             alt={movie.title}
-            className="flex-shrink-0 object-fit-cover watchlist-poster"
+            className="watchlist-poster"
           />
 
-          <div className="flex flex-column justify-content-between gap-2 flex-1 h-full overflow-hidden">
-            <div className="overflow-hidden">
-              <h3 className="m-0 watchlist-title">{movie.title}</h3>
+          <div className="flex flex-column justify-content-between gap-3">
+            <div>
+              <h3 className="m-0">{movie.title}</h3>
             </div>
-            <span className="text-sm text-600">
+            <span className="text-sm">
               {texts.app.added}: {formatTimestamp(movie.addedAt)}
             </span>
 

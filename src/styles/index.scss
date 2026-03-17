@@ -17,12 +17,5 @@ main {
 .watchlist-poster {
   width: 90px;
   height: 135px;
-  border-radius: 8px;
-}
-
-.watchlist-title {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  border-radius: 4px;
 }

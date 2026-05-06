@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from "react";
 
 import { UserInfo } from "@firebase/auth";
-import { deleteDoc, doc } from "firebase/firestore";
-import { collection, getDocs } from "firebase/firestore";
 import { Button } from "primereact/button";
 
-import { db, formatTimestamp, IMAGE_URL, texts, toast } from "@lib";
+import { IMAGE_URL, texts } from "@lib";
+import { formatTimestamp } from "@lib";
 import { IWatchListMovie } from "@entities";
+import { watchlistService } from "@services";
 
 interface IProps {
   currentUser: UserInfo | null;
@@ -15,34 +15,24 @@ interface IProps {
 const WatchList: FC<IProps> = ({ currentUser }) => {
   const [watchList, setWatchList] = useState<IWatchListMovie[]>([]);
 
-  const getWatchList = async () => {
+  useEffect(() => {
     if (!currentUser) return;
 
-    const watchlistRef = collection(db, "users", currentUser.uid, "watchlist");
-    try {
-      const snapshot = await getDocs(watchlistRef);
-      const movies = snapshot.docs.map((doc) => doc.data() as IWatchListMovie);
-      setWatchList(movies);
-    } catch (e) {
-      toast.error(`Error while fetching movies: ${e}`);
-    }
-  };
-
-  useEffect(() => {
-    getWatchList();
+    watchlistService
+      .loadWatchlist(currentUser.uid)
+      .then((movies) => setWatchList(movies));
   }, [currentUser]);
 
   const handleClick = async (movieId: number) => {
     if (!currentUser) return;
 
-    try {
-      await deleteDoc(
-        doc(db, "users", currentUser.uid, "watchlist", String(movieId)),
+    watchlistService
+      .removeFromWatchlist(movieId, currentUser.uid)
+      .then(() =>
+        setWatchList((prev) =>
+          prev.filter((movie) => movie.movieId !== movieId),
+        ),
       );
-      setWatchList((prev) => prev.filter((movie) => movie.movieId !== movieId));
-    } catch (e) {
-      toast.error(`Error deleting movie from watchlist: ${e}`);
-    }
   };
 
   return (

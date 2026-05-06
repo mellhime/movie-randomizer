@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from "react";
 
 import { UserInfo } from "@firebase/auth";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Knob } from "primereact/knob";
 
-import { db, IMAGE_URL, texts, toast } from "@lib";
+import { IMAGE_URL, texts } from "@lib";
 import { IGenre, IMovie } from "@entities";
+import { watchlistService } from "@services";
 
 interface IProps {
   movieInfo: IMovie;
@@ -39,22 +39,14 @@ const MovieInfo: FC<IProps> = ({ movieInfo, genresList, currentUser }) => {
 
     setIsWatchlistLoading(true);
 
-    const ref = doc(
-      db,
-      "users",
-      currentUser.uid,
-      "watchlist",
-      String(movieInfo.id),
-    );
-
-    try {
-      const snapshot = await getDoc(ref);
-      setIsInWatchlist(snapshot.exists());
-    } catch (e) {
-      toast.error(`Error while fetching movie: ${e}`);
-    } finally {
-      setIsWatchlistLoading(false);
-    }
+    watchlistService
+      .fetchMovieFromWatchlist(movieInfo.id, currentUser.uid)
+      .then((exists) => {
+        setIsInWatchlist(Boolean(exists));
+      })
+      .finally(() => {
+        setIsWatchlistLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -64,21 +56,9 @@ const MovieInfo: FC<IProps> = ({ movieInfo, genresList, currentUser }) => {
   const handleClick = async () => {
     if (!currentUser) return;
 
-    try {
-      await setDoc(
-        doc(db, "users", currentUser.uid, "watchlist", String(movieInfo.id)),
-        {
-          movieId: movieInfo.id,
-          title: movieInfo.title,
-          posterPath: movieInfo.posterPath,
-          addedAt: serverTimestamp(),
-        },
-      );
-
-      setIsInWatchlist(true);
-    } catch (e) {
-      toast.error(`Error adding movie to watchlist: ${e}`);
-    }
+    watchlistService
+      .addMovieToWatchlist(movieInfo, currentUser.uid)
+      .then(() => setIsInWatchlist(true));
   };
 
   const showWatchListButton =

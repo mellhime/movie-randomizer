@@ -18,17 +18,6 @@ const genresList = [
   { id: 1, name: "Action" },
 ];
 
-jest.mock("@lib", () => {
-  const actual = jest.requireActual("@lib");
-
-  return {
-    ...actual,
-    signin: jest.fn(),
-    signup: jest.fn(),
-    signout: jest.fn(),
-  };
-});
-
 describe("MovieOptions component", () => {
   const mockOnChange = jest.fn();
 

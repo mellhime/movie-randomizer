@@ -1,3 +1,5 @@
+import { Timestamp as FirestoreTimestamp } from "firebase/firestore";
+
 interface IMovie {
   title: string;
   id: TMovieId;
@@ -10,4 +12,11 @@ interface IMovie {
   voteAverage: number;
 }
 
-export { IMovie };
+interface IWatchListMovie {
+  movieId: number;
+  title: string;
+  posterPath: string;
+  addedAt: FirestoreTimestamp;
+}
+
+export { IMovie, IWatchListMovie };

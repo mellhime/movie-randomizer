@@ -5,4 +5,3 @@ export * from "./SearchBlock";
 export { SignForm } from "./SignForm";
 export { type TGenresParams, type TMoviesParams } from "./types";
 export { WatchList } from "./WatchList";
-export { WatchListButton } from "./WatchListButton";

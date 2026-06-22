@@ -30,7 +30,9 @@
       "@adapters/*": ["adapters/*"],
       "@adapters": ["adapters"],
       "@views/*": ["views/*"],
-      "@views": ["views"]
+      "@views": ["views"],
+      "@services/*": ["services/*"],
+      "@services": ["services"]
     },
     "jsx": "react-jsx"
   },

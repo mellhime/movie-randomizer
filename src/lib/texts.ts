@@ -7,6 +7,11 @@ const app = {
   signOut: "Sign Out",
   email: "Email",
   password: "Password",
+  overview: "Overview",
+  originalLanguage: "Original language",
+  actions: "Actions",
+  emptyWatchlist: "Your watch list is empty.",
+  added: "Added",
 };
 
 const notifications = {
@@ -17,6 +22,10 @@ const notifications = {
 
 const buttons = {
   submit: "Submit",
+  back: "Back",
+  watchLater: "Watch Later",
+  addToWatchList: "Add to Watchlist",
+  removeFromWatchList: "Remove from Watchlist",
 };
 
 export { app, buttons, notifications };

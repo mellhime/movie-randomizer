@@ -1,25 +1,31 @@
 import { FC } from "react";
 
+import { UserInfo } from "@firebase/auth";
+import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Knob } from "primereact/knob";
 
+import { IMAGE_URL, texts } from "@lib";
 import { IGenre, IMovie } from "@entities";
-const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+
+import { useWatchlist } from "./hooks";
 
 interface IProps {
-  movieInfo: IMovie | null;
+  movieInfo: IMovie;
   genresList: IGenre[];
+  currentUser: UserInfo | null;
 }
 
-const MovieInfo: FC<IProps> = ({ movieInfo, genresList }) => {
-  if (!movieInfo) {
-    return null;
-  }
-
+const MovieInfo: FC<IProps> = ({ movieInfo, genresList, currentUser }) => {
   const movieTitle = `${movieInfo.title} (${new Date(movieInfo?.releaseDate).getFullYear()})`;
   const imageUrl = IMAGE_URL + movieInfo.posterPath;
   const backgroundUrl = IMAGE_URL + movieInfo.backdropPath;
   const userScore = Math.round(movieInfo.voteAverage * 10);
+
+  const { isInWatchlist, isLoading, addToWatchlist } = useWatchlist(
+    movieInfo,
+    currentUser,
+  );
 
   const genresTitles = (ids: TGenreId[]) => {
     return genresList
@@ -27,6 +33,8 @@ const MovieInfo: FC<IProps> = ({ movieInfo, genresList }) => {
       .map((genre) => genre.name)
       .join(", ");
   };
+
+  const showWatchListButton = currentUser && !isInWatchlist && !isLoading;
 
   return (
     <>
@@ -53,9 +61,17 @@ const MovieInfo: FC<IProps> = ({ movieInfo, genresList }) => {
               />
               <span>User score</span>
             </div>
-            <b>Overview</b>
+            <b>{texts.app.overview}</b>
             <p>{movieInfo.overview}</p>
-            <p>{`Original language: ${movieInfo.originalLanguage.toUpperCase()}`}</p>
+            <p>{`${texts.app.originalLanguage}: ${movieInfo.originalLanguage.toUpperCase()}`}</p>
+            {showWatchListButton && (
+              <Button
+                className="p-button-secondary mb-2 md:mb-0"
+                label={texts.buttons.addToWatchList}
+                type="button"
+                onClick={addToWatchlist}
+              />
+            )}
           </div>
         </div>
       </Card>

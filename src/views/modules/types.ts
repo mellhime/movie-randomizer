@@ -28,4 +28,6 @@ type TGenresParams = {
   language?: string;
 };
 
-export { TFilterChangeEvent, TGenresParams, TMoviesParams };
+type TActiveView = "randomizer" | "watchlist";
+
+export { TActiveView, TFilterChangeEvent, TGenresParams, TMoviesParams };

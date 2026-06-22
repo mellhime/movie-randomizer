@@ -1,25 +1,31 @@
 import { FC } from "react";
 
 import { UserInfo } from "@firebase/auth";
-import { Button } from "primereact/button";
 
-import { WatchListButton } from "@modules";
-import { signout, texts } from "@lib";
+import { AuthButton, TActiveView, ViewToggleButton } from "@modules";
 
 interface IProps {
   currentUser: UserInfo | null;
-  onClick: (status: boolean) => void;
+  activeView: TActiveView;
+  onClick: () => void;
+  onChangeActionView: () => void;
 }
 
-const RightHeaderPart: FC<IProps> = ({ currentUser, onClick: handleClick }) => {
+const RightHeaderPart: FC<IProps> = ({
+  currentUser,
+  activeView,
+  onClick,
+  onChangeActionView,
+}) => {
   return (
     <div className="flex gap-2">
-      {currentUser && <WatchListButton />}
-      <Button
-        className="p-button-secondary mb-2 md:mb-0"
-        label={currentUser ? texts.app.signOut : texts.app.signIn}
-        onClick={currentUser ? signout : () => handleClick(true)}
-      />
+      {currentUser && (
+        <ViewToggleButton
+          activeView={activeView}
+          onToggle={onChangeActionView}
+        />
+      )}
+      <AuthButton currentUser={currentUser} onSignIn={onClick} />
     </div>
   );
 };

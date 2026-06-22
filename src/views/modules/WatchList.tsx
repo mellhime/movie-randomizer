@@ -4,9 +4,8 @@ import { UserInfo } from "@firebase/auth";
 import { Button } from "primereact/button";
 
 import { IMAGE_URL, texts } from "@lib";
-import { formatTimestamp } from "@lib";
 import { IWatchListMovie } from "@entities";
-import { watchlistService } from "@services";
+import { formatTimestamp, watchlistService } from "@services";
 
 interface IProps {
   currentUser: UserInfo | null;
@@ -42,15 +41,15 @@ const WatchList: FC<IProps> = ({ currentUser }) => {
       {watchList.map((movie) => (
         <div
           key={movie.movieId}
-          className="flex w-30rem h-12rem gap-4 align-items-start p-3 border-round surface-100 mb-3"
+          className="flex w-full max-w-30rem gap-4 align-items-start p-3 border-round surface-100 mb-3"
         >
           <img
             src={IMAGE_URL + movie.posterPath}
             alt={movie.title}
-            className="watchlist-poster"
+            className="watchlist-poster flex-shrink-0"
           />
 
-          <div className="flex flex-column justify-content-between gap-3">
+          <div className="flex flex-column justify-content-between gap-3 min-w-0">
             <div>
               <h3 className="m-0">{movie.title}</h3>
             </div>

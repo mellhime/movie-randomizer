@@ -9,7 +9,8 @@ body {
 }
 
 main {
-  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
   color: $text-color;
   background-image: url("/assets/images/background.png");
 }

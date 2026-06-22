@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { UserInfo } from "@firebase/auth";
 import { Button } from "primereact/button";
@@ -7,7 +7,8 @@ import { Knob } from "primereact/knob";
 
 import { IMAGE_URL, texts } from "@lib";
 import { IGenre, IMovie } from "@entities";
-import { watchlistService } from "@services";
+
+import { useWatchlist } from "./hooks";
 
 interface IProps {
   movieInfo: IMovie;
@@ -21,8 +22,10 @@ const MovieInfo: FC<IProps> = ({ movieInfo, genresList, currentUser }) => {
   const backgroundUrl = IMAGE_URL + movieInfo.backdropPath;
   const userScore = Math.round(movieInfo.voteAverage * 10);
 
-  const [isInWatchlist, setIsInWatchlist] = useState(false);
-  const [isWatchlistLoading, setIsWatchlistLoading] = useState(false);
+  const { isInWatchlist, isLoading, addToWatchlist } = useWatchlist(
+    movieInfo,
+    currentUser,
+  );
 
   const genresTitles = (ids: TGenreId[]) => {
     return genresList
@@ -31,38 +34,7 @@ const MovieInfo: FC<IProps> = ({ movieInfo, genresList, currentUser }) => {
       .join(", ");
   };
 
-  const checkWatchlist = async () => {
-    if (!currentUser) {
-      setIsInWatchlist(false);
-      return;
-    }
-
-    setIsWatchlistLoading(true);
-
-    watchlistService
-      .fetchMovieFromWatchlist(movieInfo.id, currentUser.uid)
-      .then((exists) => {
-        setIsInWatchlist(Boolean(exists));
-      })
-      .finally(() => {
-        setIsWatchlistLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    checkWatchlist();
-  }, [currentUser, movieInfo]);
-
-  const handleClick = async () => {
-    if (!currentUser) return;
-
-    watchlistService
-      .addMovieToWatchlist(movieInfo, currentUser.uid)
-      .then(() => setIsInWatchlist(true));
-  };
-
-  const showWatchListButton =
-    currentUser && !isInWatchlist && !isWatchlistLoading;
+  const showWatchListButton = currentUser && !isInWatchlist && !isLoading;
 
   return (
     <>
@@ -97,7 +69,7 @@ const MovieInfo: FC<IProps> = ({ movieInfo, genresList, currentUser }) => {
                 className="p-button-secondary mb-2 md:mb-0"
                 label={texts.buttons.addToWatchList}
                 type="button"
-                onClick={handleClick}
+                onClick={addToWatchlist}
               />
             )}
           </div>

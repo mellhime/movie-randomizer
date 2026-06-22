@@ -1,13 +1,12 @@
 import { FC } from "react";
 
 import { UserInfo } from "@firebase/auth";
-import { Button } from "primereact/button";
 
-import { signout, texts } from "@lib";
+import { AuthButton, TActiveView, ViewToggleButton } from "@modules";
 
 interface IProps {
   currentUser: UserInfo | null;
-  activeView: "randomizer" | "watchlist";
+  activeView: TActiveView;
   onClick: () => void;
   onChangeActionView: () => void;
 }
@@ -15,28 +14,18 @@ interface IProps {
 const RightHeaderPart: FC<IProps> = ({
   currentUser,
   activeView,
-  onClick: handleClick,
-  onChangeActionView: handleChangeActionView,
+  onClick,
+  onChangeActionView,
 }) => {
-  const buttonLabel =
-    activeView === "randomizer" ? texts.buttons.watchLater : texts.buttons.back;
-  const signButtonLabel = currentUser ? texts.app.signOut : texts.app.signIn;
-
   return (
     <div className="flex gap-2">
       {currentUser && (
-        <Button
-          className="p-button-secondary mb-2 md:mb-0"
-          label={buttonLabel}
-          type="button"
-          onClick={handleChangeActionView}
+        <ViewToggleButton
+          activeView={activeView}
+          onToggle={onChangeActionView}
         />
       )}
-      <Button
-        className="p-button-secondary mb-2 md:mb-0"
-        label={signButtonLabel}
-        onClick={currentUser ? signout : () => handleClick()}
-      />
+      <AuthButton currentUser={currentUser} onSignIn={onClick} />
     </div>
   );
 };

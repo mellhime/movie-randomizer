@@ -18,6 +18,7 @@ import {
   MovieInfo,
   SearchBlock,
   SignForm,
+  TActiveView,
   useGetGenres,
   WatchList,
 } from "@modules";
@@ -29,9 +30,7 @@ const App: FC = () => {
   const [genresList, setGenresList] = useState<IGenre[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
   const [isSignInFormOpen, setIsSignInFormOpen] = useState<boolean>(false);
-  const [activeView, setActiveView] = useState<"randomizer" | "watchlist">(
-    "randomizer",
-  );
+  const [activeView, setActiveView] = useState<TActiveView>("randomizer");
 
   const { handleGetGenresList } = useGetGenres();
 
